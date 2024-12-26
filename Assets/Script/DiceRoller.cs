@@ -1,12 +1,29 @@
+// Dice Roller Script
+// Açýklama: Zar atar, sonucu UI'de gösterir ve ilgili kartlarý aktif eder.
+
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class DiceRoller : MonoBehaviour
 {
+    #region Fields
+
+    [Tooltip("Zar sonucunu gösterecek Text bileþeni.")]
     public Text resultText; // Zar sonucu yazdýrýlacak Text bileþeni
+
+    [Tooltip("Düþük kart için GameObject.")]
     public GameObject lowCard; // Düþük kart GameObject
+
+    [Tooltip("Orta kart için GameObject.")]
     public GameObject mediumCard; // Orta kart GameObject
+
+    [Tooltip("Bonus kart için GameObject.")]
     public GameObject bonusCard; // Bonus kart GameObject
+
+    #endregion
+
+    #region Dice_Roll
 
     public void RollDice()
     {
@@ -36,6 +53,9 @@ public class DiceRoller : MonoBehaviour
         }
 
         // Sonucu Text bileþenine yazdýr
-        resultText.text = $"Zar Sonucu: {diceResult} - {resultMessage}";
+        resultText.text = $"Zar Sonucu: {diceResult} - {resultMessage}"; // resultText.text = "Zar Sonucu: " + diceResult + " - " + resultMessage;
+        
     }
+
+    #endregion
 }

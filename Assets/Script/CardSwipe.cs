@@ -1,31 +1,45 @@
+// Kart Kaydýrma Scripti
+// Açýklama: Aktif kartlar mouse pozisyonunda hareket eder ve çýktý verir.
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardSwipe : MonoBehaviour
 {
-    private Vector3 initialPosition; // Ýlk pozisyonu saklamak için
-    private bool isDragging = false; // Sürükleme durumunu kontrol etmek için
+    #region Variables
+    [Tooltip("Ýlk pozisyonu saklamak için kullanýlýr.")] // Ýlk pozisyonu saklamak için
+    private Vector3 initialPosition;
 
+    [Tooltip("Sürükleme iþleminin aktif olup olmadýðýný kontrol eder.")] // Sürükleme durumunu kontrol etmek için
+    private bool isDragging = false;
 
-    public Text deneme; // Deneme Text bileþeni
+    [Tooltip("Kartýn hedef mesafesi. Bu mesafeyi geçerse iþlem gerçekleþir.")]
+    public int targetDistance = 450;
+
+    [Tooltip("Deneme için kullanýlan Text bileþeni.")]
+    public Text deneme;
+
+    [Tooltip("Kartlarýn bulunduðu GameObject dizisi.")]
     public GameObject[] cards;
+    #endregion
 
-
+    #region Start Items
     void Start()
     {
         // Objenin baþlangýç pozisyonunu kaydet
         initialPosition = transform.position;
     }
+    #endregion
 
-    // Pointer Down Event'i ile baðlanacak metot
-    public void OnPointerDown(BaseEventData data)
+    #region Pointer Events
+    // event trigger componentine baðlý
+    public void OnPointerDown(BaseEventData data) // event trigger componentine baðlý
     {
         // Sürükleme iþlemini baþlat
         isDragging = true;
     }
 
-    // Drag Event'i ile baðlanacak metot
     public void OnDrag(BaseEventData data)
     {
         if (isDragging)
@@ -41,8 +55,6 @@ public class CardSwipe : MonoBehaviour
             }
         }
     }
-
-    // Pointer Up Event'i ile baðlanacak metot
     public void OnPointerUp(BaseEventData data)
     {
         // Sürükleme iþlemini bitir
@@ -51,7 +63,7 @@ public class CardSwipe : MonoBehaviour
         // Objenin býrakýldýðý pozisyon ile baþlangýç pozisyonunu karþýlaþtýr
         float distanceX = transform.position.x - initialPosition.x;
 
-        if (distanceX >= 400) // Saðda býrakýldýysa
+        if (distanceX >= targetDistance) // Saðda býrakýldýysa
         {
             deneme.text = "true";
             for (int i = 0; i < cards.Length; i++)
@@ -59,7 +71,7 @@ public class CardSwipe : MonoBehaviour
                 cards[i].SetActive(false);
             }
         }
-        else if (distanceX <= -400) // Solda býrakýldýysa
+        else if (distanceX <= -targetDistance) // Solda býrakýldýysa
         {
             deneme.text = "false";
             for (int i = 0; i < cards.Length; i++)
@@ -71,4 +83,5 @@ public class CardSwipe : MonoBehaviour
         // Obje baþlangýç pozisyonuna geri döner
         transform.position = initialPosition;
     }
+    #endregion
 }
