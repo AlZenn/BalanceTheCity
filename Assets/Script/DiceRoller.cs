@@ -10,7 +10,9 @@ public class DiceRoller : MonoBehaviour
     [Header("Basic Items")]
     public GameObject CardAfterDice;
 
+    public Text CardTitleGameObject;
     public GameObject CardPhotoGameObject;
+
     [SerializeField] private GameObject dice; // Zar 3D objesi
     [SerializeField] private Text resultText; // Zar sonucu yazdýrýlacak Text bileþeni
     [SerializeField] private float rollDuration = 1.5f; // Zar döndürme süresi
@@ -109,6 +111,7 @@ public class DiceRoller : MonoBehaviour
         // Kart adýný ve etkilerini UI'da göster
         resultText.text += $"\nSeçilen Kart: {card.name}";
 
+        CardTitleGameObject.text = card.name;
         Image cardImage = CardPhotoGameObject.GetComponent<Image>();
         if (cardImage != null)
         {
