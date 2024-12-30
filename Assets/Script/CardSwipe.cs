@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class CardSwipe : MonoBehaviour
 {
     #region Variables
+
+
     [Tooltip("Ýlk pozisyonu saklamak için kullanýlýr.")] // Ýlk pozisyonu saklamak için
     private Vector3 initialPosition;
 
@@ -15,13 +17,17 @@ public class CardSwipe : MonoBehaviour
     private bool isDragging = false;
 
     [Tooltip("Kartýn hedef mesafesi. Bu mesafeyi geçerse iþlem gerçekleþir.")]
-    public int targetDistance = 450;
+    [Header("Ekran Alaný")]
+    [SerializeField] private int targetDistance = 450;
 
     [Tooltip("Deneme için kullanýlan Text bileþeni.")]
-    public Text deneme;
+    [SerializeField] private Text deneme;
 
     [Tooltip("Kartlarýn bulunduðu GameObject dizisi.")]
-    public GameObject[] cards;
+    public GameObject VisibleCard;
+
+    [SerializeField] private Button diceButton;
+    public DiceRoller diceRoller;
     #endregion
 
     #region Start Items
@@ -34,7 +40,7 @@ public class CardSwipe : MonoBehaviour
 
     #region Pointer Events
     // event trigger componentine baðlý
-    public void OnPointerDown(BaseEventData data) // event trigger componentine baðlý
+    public void OnPointerDown(BaseEventData data) // Event trigger componentine baðlý
     {
         // Sürükleme iþlemini baþlat
         isDragging = true;
@@ -65,19 +71,21 @@ public class CardSwipe : MonoBehaviour
 
         if (distanceX >= targetDistance) // Saðda býrakýldýysa
         {
-            deneme.text = "true";
-            for (int i = 0; i < cards.Length; i++)
-            {
-                cards[i].SetActive(false);
-            }
+            deneme.text = "Kabul Edildi";
+            //VisibleCard.SetActive(false);
+            diceButton.interactable = true;
+
+            diceRoller.denemeBool = true;
+            diceRoller.denemeInt = 1;
         }
         else if (distanceX <= -targetDistance) // Solda býrakýldýysa
         {
-            deneme.text = "false";
-            for (int i = 0; i < cards.Length; i++)
-            {
-                cards[i].SetActive(false);
-            }
+            deneme.text = "Reddedildi";
+            //VisibleCard.SetActive(false);
+            diceButton.interactable = true;
+
+            diceRoller.denemeBool = true;
+            diceRoller.denemeInt = 2;
         }
 
         // Obje baþlangýç pozisyonuna geri döner

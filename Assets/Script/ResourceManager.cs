@@ -1,13 +1,57 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
     // Kaynak deðerleri
+    public DiceRoller diceRoller2;
+
     public int happiness = 10;
     public int cleanliness = 10;
     public int power = 10;
     public int money = 10;
+
+
+    public Text[] cardEffectsPositiveTexts;
+    public Text[] cardEffectsNegativeTexts;
+    public Text[] gameEffectsTexts;
+
+    private void Start()
+    {
+        gameEffectsTexts[0].text = happiness.ToString();
+        gameEffectsTexts[1].text = cleanliness.ToString();
+        gameEffectsTexts[2].text = power.ToString();
+        gameEffectsTexts[3].text = money.ToString();
+    }
+    private void Update()
+    {
+    }
+
+
+    // Kart etkilerini güncellemek için bir metod
+    public void DisplayCardEffects(Card card)
+    {
+        UpdateEffectTexts(cardEffectsPositiveTexts, card.approveEffect);
+        UpdateEffectTexts(cardEffectsNegativeTexts, card.rejectEffect);
+    }
+
+    private void UpdateEffectTexts(Text[] texts, Effect effect)
+    {
+        string[] effectDescriptions = new string[4];
+
+        effectDescriptions[0] = effect.happinessChange != 0 ? $"Mutluluk: {effect.happinessChange}" : "";
+        effectDescriptions[1] = effect.cleanlinessChange != 0 ? $"Temizlik: {effect.cleanlinessChange}" : "";
+        effectDescriptions[2] = effect.powerChange != 0 ? $"Güç: {effect.powerChange}" : "";
+        effectDescriptions[3] = effect.moneyChange != 0 ? $"Para: {effect.moneyChange}" : "";
+
+        for (int i = 0; i < texts.Length; i++)
+        {
+            texts[i].text = i < effectDescriptions.Length && !string.IsNullOrEmpty(effectDescriptions[i])
+                ? effectDescriptions[i]
+                : "";
+        }
+    }
 
     // Low kartlar
     public List<Card> lowCards = new List<Card>
@@ -28,7 +72,6 @@ public class ResourceManager : MonoBehaviour
         new Card("Elektrik Patlamasý", new Effect(-3, 0, -3, -3), new Effect(-3, 0, -3, -3))
     };
 
-    // Mid kartlar
     public List<Card> midCards = new List<Card>
     {
         new Card("Kanalizasyon Sisteminin Yenilenmesi", new Effect(0, 4, -2, -3), new Effect(0, -3, 0, 2)),
@@ -53,8 +96,6 @@ public class ResourceManager : MonoBehaviour
         new Card("Þehirde Yenilenebilir Enerji Projesi", new Effect(0, 3, 2, 3), new Effect(0, 0, 0, 0)),
         new Card("Doðal Kaynak Baðýþý", new Effect(3, 2, 0, 0), new Effect(0, 0, 0, 0))
     };
-
-    // Kaynaklarý güncelle
     public void UpdateResources(Effect effect)
     {
         happiness = Mathf.Clamp(happiness + effect.happinessChange, 0, 20);
@@ -62,6 +103,7 @@ public class ResourceManager : MonoBehaviour
         power = Mathf.Clamp(power + effect.powerChange, 0, 20);
         money = Mathf.Clamp(money + effect.moneyChange, 0, 20);
     }
+
 }
 
 // Kart bilgisi
@@ -69,6 +111,7 @@ public class ResourceManager : MonoBehaviour
 public class Card
 {
     public string name; // Kart adý
+    public Sprite cardPhoto;
     public Effect approveEffect; // Onay etkisi
     public Effect rejectEffect; // Reddetme etkisi
 
