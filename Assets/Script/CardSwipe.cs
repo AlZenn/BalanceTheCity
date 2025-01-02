@@ -9,32 +9,22 @@ public class CardSwipe : MonoBehaviour
 {
     #region Variables
 
+    private Vector3 initialPosition;// Ýlk pozisyonu saklamak için
+    private bool isDragging = false;// Sürükleme durumunu kontrol etmek için
 
-    [Tooltip("Ýlk pozisyonu saklamak için kullanýlýr.")] // Ýlk pozisyonu saklamak için
-    private Vector3 initialPosition;
-
-    [Tooltip("Sürükleme iþleminin aktif olup olmadýðýný kontrol eder.")] // Sürükleme durumunu kontrol etmek için
-    private bool isDragging = false;
-
-    [Tooltip("Kartýn hedef mesafesi. Bu mesafeyi geçerse iþlem gerçekleþir.")]
     [Header("Ekran Alaný")]
     [SerializeField] private int targetDistance = 450;
-
-    [Tooltip("Deneme için kullanýlan Text bileþeni.")]
     [SerializeField] private Text deneme;
-
-    [Tooltip("Kartlarýn bulunduðu GameObject dizisi.")]
     public GameObject VisibleCard;
-
     [SerializeField] private Button diceButton;
+
     public DiceRoller diceRoller;
     #endregion
 
     #region Start Items
     void Start()
     {
-        // Objenin baþlangýç pozisyonunu kaydet
-        initialPosition = transform.position;
+        initialPosition = transform.position; // Objenin baþlangýç pozisyonunu kaydet
     }
     #endregion
 
@@ -42,8 +32,7 @@ public class CardSwipe : MonoBehaviour
     // event trigger componentine baðlý
     public void OnPointerDown(BaseEventData data) // Event trigger componentine baðlý
     {
-        // Sürükleme iþlemini baþlat
-        isDragging = true;
+        isDragging = true; // Sürükleme iþlemini baþlat
     }
 
     public void OnDrag(BaseEventData data)
@@ -73,18 +62,18 @@ public class CardSwipe : MonoBehaviour
         {
             deneme.text = "Kabul Edildi";
             //VisibleCard.SetActive(false);
-            diceButton.interactable = true;
+            diceButton.interactable = true; // bug olmamasý adýna eklendi
 
-            diceRoller.denemeBool = true;
-            diceRoller.denemeInt = 1;
+            diceRoller.denemeBool = true; // dice roller scripti ile baðlantý
+            diceRoller.denemeInt = 1; 
         }
         else if (distanceX <= -targetDistance) // Solda býrakýldýysa
         {
             deneme.text = "Reddedildi";
             //VisibleCard.SetActive(false);
-            diceButton.interactable = true;
+            diceButton.interactable = true; // bug olmamasý adýna eklendi
 
-            diceRoller.denemeBool = true;
+            diceRoller.denemeBool = true; // dice roller scripti ile baðlantý
             diceRoller.denemeInt = 2;
         }
 

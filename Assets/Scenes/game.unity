@@ -1543,6 +1543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CardAfterDice: {fileID: 2115531338}
+  CardTitleGameObject: {fileID: 2036527362}
   CardPhotoGameObject: {fileID: 330110568}
   dice: {fileID: 919132148514209810}
   resultText: {fileID: 1246399820}

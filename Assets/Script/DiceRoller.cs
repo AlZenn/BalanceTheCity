@@ -8,9 +8,8 @@ using Random = UnityEngine.Random;
 public class DiceRoller : MonoBehaviour
 {
     [Header("Basic Items")]
-    public GameObject CardAfterDice;
-
-    public Text CardTitleGameObject;
+    public GameObject CardAfterDice; // Zar atýldýktan sonra ekrana çýkan kart 
+    public Text CardTitleGameObject; // kartýn baþlýðý
     public GameObject CardPhotoGameObject;
 
     [SerializeField] private GameObject dice; // Zar 3D objesi
@@ -18,28 +17,29 @@ public class DiceRoller : MonoBehaviour
     [SerializeField] private float rollDuration = 1.5f; // Zar döndürme süresi
     private bool isRolling = false; // Zar döndürülüyor mu?
     [SerializeField] private float waitTimer = 1f;
-    [SerializeField] private Button diceButton;
-    [SerializeField] private Material[] cardColors;
+    [SerializeField] private Button diceButton; // zar butonu týklanabilir.
+    [SerializeField] private Material[] cardColors; // kart material controller
 
-    public ResourceManager resourceManager;
+    public ResourceManager resourceManager; 
 
     private void Awake()
     {
-        CardAfterDice.SetActive(false);
+        CardAfterDice.SetActive(false); // kartý deaktif yapýyoruz.
     }
 
     public void RollDice()
     {
-        if (!isRolling)
+        if (!isRolling) // butona týklanýnca animasyon giriyor.
         {
             StartCoroutine(RollDiceAnimation());
         }
     }
 
-    private IEnumerator RollDiceAnimation()
+    private IEnumerator RollDiceAnimation() 
     {
         isRolling = true;
-        diceButton.interactable = false;
+        diceButton.interactable = false; // bug çözümü için 
+
 
         // Zar animasyonu baþlat
         float elapsedTime = 0f;
@@ -48,7 +48,7 @@ public class DiceRoller : MonoBehaviour
         while (elapsedTime < rollDuration)
         {
             elapsedTime += Time.deltaTime;
-            dice.transform.Rotate(new Vector3(360 * Time.deltaTime, 360 * Time.deltaTime, 180 * Time.deltaTime)); // Zar döndürme
+            dice.transform.Rotate(new Vector3(360 * Time.deltaTime, 360 * Time.deltaTime, 180 * Time.deltaTime)); // Zar döndürme 3d model geldikten sonra deðiþecek
             yield return null;
         }
         dice.transform.rotation = initialRotation;
@@ -64,7 +64,6 @@ public class DiceRoller : MonoBehaviour
     {
         resultText.text = $"Zar Sonucu: {diceResult}";
 
-
         // 3 saniye bekle
         yield return new WaitForSeconds(waitTimer);
 
@@ -73,7 +72,7 @@ public class DiceRoller : MonoBehaviour
 
         // Zar sonucuna göre kart seç
         Card selectedCard = null;
-        if (diceResult >= 1 && diceResult <= 3)
+        if (diceResult >= 1 && diceResult <= 3) // çýkan zar deðerine göre material deðiþiyor. ve resource managerden random kart seçiliyor.
         {
             selectedCard = GetRandomCard(resourceManager.lowCards);
             CardAfterDice.GetComponent<Image>().material = cardColors[0];
@@ -98,14 +97,14 @@ public class DiceRoller : MonoBehaviour
         diceButton.interactable = true;
     }
 
-    private Card GetRandomCard(List<Card> cardList)
+    private Card GetRandomCard(List<Card> cardList) // kart listesinde kart varsa kart sayýsý ve 0 aralýðýnda kart seçer ve döndürür.
     {
         if (cardList == null || cardList.Count == 0) return null;
         int randomIndex = Random.Range(0, cardList.Count);
         return cardList[randomIndex];
     }
 
-    private void DisplayCard(Card card)
+    private void DisplayCard(Card card) // seçilen random kartý gösterir. adýný günceller. resmini günceller. efektleri günceller.
     {
         CardAfterDice.SetActive(true);
         // Kart adýný ve etkilerini UI'da göster
@@ -146,7 +145,8 @@ public class DiceRoller : MonoBehaviour
 
         Debug.Log($"Mutluluk: {approveEffect.happinessChange}Temizlik: {approveEffect.cleanlinessChange}");
 
-        Positifdegerler[0] = Mathf.RoundToInt(approveEffect.happinessChange);
+        // stringden integer'a deðer döndürür. 
+        Positifdegerler[0] = Mathf.RoundToInt(approveEffect.happinessChange); 
         Positifdegerler[1] = Mathf.RoundToInt(approveEffect.cleanlinessChange);
         Positifdegerler[2] = Mathf.RoundToInt(approveEffect.powerChange);
         Positifdegerler[3] = Mathf.RoundToInt(approveEffect.moneyChange);
@@ -158,11 +158,11 @@ public class DiceRoller : MonoBehaviour
         Negatifdegerler[3] = Mathf.RoundToInt(rejectEffect.moneyChange);
         }
 
-    private void Update()
+    private void Update() 
     {
-        if (denemeBool == true)
+        if (denemeBool == true) // card swipe'dan deðer alýr.
         {
-            if (denemeInt == 1)
+            if (denemeInt == 1) 
             {
                 changePositive();
                 denemeInt = 0;
@@ -176,10 +176,15 @@ public class DiceRoller : MonoBehaviour
             }
         }
     }
+            
 
     public CardSwipe SCCardSwipe;
+    // card swipe'daki deðerler olduktan sonra positif ya da negatife gider
+    // positifse - negatifse güncellenir.
+    // ekrandaki deðerler güncellenir 
+    // kart yok olur.
 
-    public void changePositive()
+    public void changePositive() 
     {
         int sonuc1 = Positifdegerler[0] + resourceManager.happiness;
         int sonuc2 = Positifdegerler[1] + resourceManager.cleanliness; 
