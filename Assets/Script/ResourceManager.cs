@@ -1,13 +1,35 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ResourceManager : MonoBehaviour
 {
-    // Kaynak deðerleri
+    
+    public DiceRoller diceRoller2;
+
+
+    // Kaynak deðerleri //
     public int happiness = 10;
     public int cleanliness = 10;
     public int power = 10;
     public int money = 10;
+    // -Kaynak deðerleri- //
+
+    // Kaynak deðerleri Text Objeleri //
+    public Text[] cardEffectsPositiveTexts;
+    public Text[] cardEffectsNegativeTexts;
+    public Text[] gameEffectsTexts;
+    //- Kaynak deðerleri Text Objeleri -//
+
+    // Default deðerler text'e yazýlýr. //
+    private void Start()
+    {
+        gameEffectsTexts[0].text = happiness.ToString();
+        gameEffectsTexts[1].text = cleanliness.ToString();
+        gameEffectsTexts[2].text = power.ToString();
+        gameEffectsTexts[3].text = money.ToString();
+    }
+    // -Default deðerler text'e yazýlýr. //
 
     // Low kartlar
     public List<Card> lowCards = new List<Card>
@@ -28,7 +50,6 @@ public class ResourceManager : MonoBehaviour
         new Card("Elektrik Patlamasý", new Effect(-3, 0, -3, -3), new Effect(-3, 0, -3, -3))
     };
 
-    // Mid kartlar
     public List<Card> midCards = new List<Card>
     {
         new Card("Kanalizasyon Sisteminin Yenilenmesi", new Effect(0, 4, -2, -3), new Effect(0, -3, 0, 2)),
@@ -54,7 +75,8 @@ public class ResourceManager : MonoBehaviour
         new Card("Doðal Kaynak Baðýþý", new Effect(3, 2, 0, 0), new Effect(0, 0, 0, 0))
     };
 
-    // Kaynaklarý güncelle
+    // sýnýrlandýrma olarak eklenebilir sonradan
+    /*
     public void UpdateResources(Effect effect)
     {
         happiness = Mathf.Clamp(happiness + effect.happinessChange, 0, 20);
@@ -62,6 +84,7 @@ public class ResourceManager : MonoBehaviour
         power = Mathf.Clamp(power + effect.powerChange, 0, 20);
         money = Mathf.Clamp(money + effect.moneyChange, 0, 20);
     }
+    */
 }
 
 // Kart bilgisi
@@ -69,6 +92,7 @@ public class ResourceManager : MonoBehaviour
 public class Card
 {
     public string name; // Kart adý
+    public Sprite cardPhoto; // kart Sprite'ý
     public Effect approveEffect; // Onay etkisi
     public Effect rejectEffect; // Reddetme etkisi
 
