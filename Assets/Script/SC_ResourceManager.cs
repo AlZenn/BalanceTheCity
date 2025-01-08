@@ -15,7 +15,7 @@ public class SC_ResourceManager : MonoBehaviour
     public Text[] cardEffectsPositiveTexts;
     public Text[] cardEffectsNegativeTexts;
     public Text[] gameEffectsTexts;
-    public Slider trustSlider;
+
     
     private void Start()
     {
@@ -23,7 +23,7 @@ public class SC_ResourceManager : MonoBehaviour
         gameEffectsTexts[1].text = cleanliness.ToString();
         gameEffectsTexts[2].text = power.ToString();
         gameEffectsTexts[3].text = money.ToString();
-        trustSlider.value = 1f;
+        
     }
 
     public List<Card> lowCards = new List<Card>
