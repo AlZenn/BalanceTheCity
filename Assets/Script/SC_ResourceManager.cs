@@ -10,21 +10,135 @@ public class SC_ResourceManager : MonoBehaviour
     public int cleanliness = 10;
     public int power = 10;
     public int money = 10;
-    
+
     [Header("Kaynak Text Objeleri")]
     public Text[] cardEffectsPositiveTexts;
     public Text[] cardEffectsNegativeTexts;
     public Text[] gameEffectsTexts;
 
-    
+    private int previousHappiness;
+    private int previousCleanliness;
+    private int previousPower;
+    private int previousMoney;
+
+    public int consecutiveCleanlinessIncreases;
+    public int consecutivePowerIncreases;
+    public int consecutiveHappinessIncreases;
+    public int consecutiveMoneyIncreases;
+    public int consecutiveCleanlinessAndHappinessIncreases;
+
     private void Start()
     {
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
+
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+        consecutiveCleanlinessAndHappinessIncreases = 0;
         gameEffectsTexts[0].text = happiness.ToString();
         gameEffectsTexts[1].text = cleanliness.ToString();
         gameEffectsTexts[2].text = power.ToString();
         gameEffectsTexts[3].text = money.ToString();
-        
     }
+
+    public void UpdateStats(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
+    {
+        UpdateConsecutiveIncreases(happinessChange, cleanlinessChange, powerChange, moneyChange);
+
+        happiness += happinessChange;
+        cleanliness += cleanlinessChange;
+        power += powerChange;
+        money += moneyChange;
+
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
+    }
+
+    private void UpdateConsecutiveIncreases(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
+    {
+        if (happinessChange > 0 && happiness > previousHappiness)
+            consecutiveHappinessIncreases++;
+        else
+            consecutiveHappinessIncreases = 0;
+
+        if (cleanlinessChange > 0 && cleanliness > previousCleanliness)
+            consecutiveCleanlinessIncreases++;
+        else
+            consecutiveCleanlinessIncreases = 0;
+
+        if (powerChange > 0 && power > previousPower)
+            consecutivePowerIncreases++;
+        else
+            consecutivePowerIncreases = 0;
+
+        if (moneyChange > 0 && money > previousMoney)
+            consecutiveMoneyIncreases++;
+        else
+            consecutiveMoneyIncreases = 0;
+    }
+
+    public void IncreaseCleanliness(int amount)
+    {
+        cleanliness += amount;
+        consecutiveCleanlinessIncreases++;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+        consecutiveCleanlinessAndHappinessIncreases = 0;
+    }
+
+    public void IncreasePower(int amount)
+    {
+        power += amount;
+        consecutivePowerIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+        consecutiveCleanlinessAndHappinessIncreases = 0;
+    }
+
+    public void IncreaseHappiness(int amount)
+    {
+        happiness += amount;
+        consecutiveHappinessIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+        consecutiveCleanlinessAndHappinessIncreases = 0;
+    }
+
+    public void IncreaseMoney(int amount)
+    {
+        money += amount;
+        consecutiveMoneyIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveCleanlinessAndHappinessIncreases = 0;
+    }
+
+    public void IncreaseCleanlinessAndHappiness(int cleanlinessAmount, int happinessAmount)
+    {
+        cleanliness += cleanlinessAmount;
+        happiness += happinessAmount;
+        consecutiveCleanlinessAndHappinessIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void ResetCleanlinessIncreases() => consecutiveCleanlinessIncreases = 0;
+    public void ResetPowerIncreases() => consecutivePowerIncreases = 0;
+    public void ResetHappinessIncreases() => consecutiveHappinessIncreases = 0;
+    public void ResetMoneyIncreases() => consecutiveMoneyIncreases = 0;
+    public void ResetCleanlinessAndHappinessIncreases() => consecutiveCleanlinessAndHappinessIncreases = 0;
 
     public List<Card> lowCards = new List<Card>
     {
@@ -68,7 +182,6 @@ public class SC_ResourceManager : MonoBehaviour
         new Card("Şehirde Yenilenebilir Enerji Projesi", new Effect(0, 3, 2, 3), new Effect(0, 0, 0, 0)),
         new Card("Doğal Kaynak Bağışı", new Effect(3, 2, 0, 0), new Effect(0, 0, 0, 0))
     };
-
 }
 
 // Kart bilgisi

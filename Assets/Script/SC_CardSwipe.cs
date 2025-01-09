@@ -11,13 +11,29 @@ public class SC_CardSwipe : MonoBehaviour
     private Vector3 initialPosition;
     [SerializeField] private int targetDistance = 450;
     [SerializeField] private bool isDragging = false;
+
+    [SerializeField] private AudioClip dragSound; // Sürükleme sesi
+    private AudioSource audioSource;
+    private bool hasPlayedSound = false;
     void Start()
     {
         initialPosition = transform.position; // Objenin başlangıç pozisyonunu kaydet
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = dragSound;
+        audioSource.loop = false; // Sesin sürekli çalmamasını sağla
+        audioSource.playOnAwake = false; // Kart ekrana geldiğinde ses çalınmamasını sağla
     }
     public void OnPointerDown(BaseEventData data) // Event trigger componentine bağlı
     {
         isDragging = true; // Sürükleme işlemini başlat
+        hasPlayedSound = false; // Ses bayrağını sıfırla
+
+        // Sesi çal
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+            hasPlayedSound = true; // Ses çalındı bayrağını ayarla
+        }
     }
 
     public void OnDrag(BaseEventData data)

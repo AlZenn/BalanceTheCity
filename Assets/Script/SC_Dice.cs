@@ -2,10 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
-using Unity.Android.Types;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using Quaternion = UnityEngine.Quaternion;
 using Random = UnityEngine.Random;
 using Vector3 = UnityEngine.Vector3;
@@ -35,9 +32,23 @@ public class SC_Dice : MonoBehaviour
     public bool denemeBool = true;
     public int denemeInt = 0;
 
+    
+    
+    public Vector3[] rotations;  // Her zar sonucu için dönüş değerleri
+    public float rotateDuration = 1f; // Hedef rotasyona dönüş süresi
+
+    private AudioSource audioSource;
     private void Awake()
     {
         Card_Object.SetActive(false);
+        audioSource = Dice_Object.GetComponent<AudioSource>(); // AudioSource bileşenini al
+
+        // playOnAwake özelliğini devre dışı bırak ve mute yap
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+            audioSource.mute = true; // Başlangıçta sesi mute yap
+        }
     }
 
 
@@ -45,6 +56,11 @@ public class SC_Dice : MonoBehaviour
     {
         if (!isRolling)
         {
+            // Sesi mute'den çıkar
+            if (audioSource != null)
+            {
+                audioSource.mute = false;
+            }
             StartCoroutine(RollDiceAnimation());
             Debug.Log("zar döndürülüyor");
         }
@@ -53,37 +69,86 @@ public class SC_Dice : MonoBehaviour
 
     private IEnumerator RollDiceAnimation()
     {
+
         isRolling = true;
         Button_Dice.interactable = false;
 
-        float elapsedTime = 0f;
-        Quaternion initalRotation = Dice_Object.transform.rotation;
+        // Zar sesini çal
+        if (audioSource != null && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
 
+        float elapsedTime = 0f;
+
+        // Zar animasyonu (rastgele dönüşler)
         while (elapsedTime < rollTimer)
         {
             elapsedTime += Time.deltaTime;
+
+            // Rastgele dönüş
             float x = Random.Range(0, 360);
             float y = Random.Range(0, 360);
             float z = Random.Range(0, 360);
-
-            // random dönme animasyonu buna target rotation eklenecek her değer için.
             Dice_Object.transform.Rotate(new Vector3(x * Time.deltaTime, y * Time.deltaTime, z * Time.deltaTime));
 
             yield return null;
         }
 
-        isRolling = false;
+        // Zar sonucunu hesapla
+        int diceResult = Random.Range(1, 7);
 
-        // zar sonucu çıkartma
-        diceResultFunction();
+        // Zar sonucuna göre hedef rotasyonu belirle
+        if (rotations != null && rotations.Length >= diceResult)
+        {
+            Vector3 targetRotation = rotations[diceResult - 1];
+            yield return StartCoroutine(SmoothRotateTo(Quaternion.Euler(targetRotation)));
+        }
+        else
+        {
+            Debug.LogError("Rotations dizisi eksik veya doğru ayarlanmamış!");
+        }
+
+        isRolling = false;
+        Button_Dice.interactable = true;
+
+        // Zar sonucu işlem fonksiyonunu çalıştır
+        diceResultFunction(diceResult);
     }
 
-    private void diceResultFunction()
+    private IEnumerator SmoothRotateTo(Quaternion targetRotation)
     {
-        int diceResult = Random.Range(1, 7);
-        Debug.Log("zar sonucu:" + diceResult);
+        Quaternion initialRotation = Dice_Object.transform.rotation;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < rotateDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / rotateDuration;
+
+            // Başlangıç ve hedef rotasyon arasında yumuşak geçiş
+            Dice_Object.transform.rotation = Quaternion.Lerp(initialRotation, targetRotation, t);
+
+            yield return null;
+        }
+
+        // Hedef rotasyona tam olarak ayarla
+        Dice_Object.transform.rotation = targetRotation;
+    }
+
+    private void diceResultFunction(int diceResult)
+    {
+        Debug.Log("Zar sonucu: " + diceResult);
         StartCoroutine(ShowDiceResult(diceResult));
     }
+
+
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="diceResult"></param>
+/// <returns></returns>
 
     private IEnumerator ShowDiceResult(int diceResult)
     {

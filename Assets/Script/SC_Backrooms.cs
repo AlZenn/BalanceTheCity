@@ -166,6 +166,11 @@ public class SC_Backrooms : MonoBehaviour
         PanelPhoto.sprite = card.cardPhoto;
         UpdateEffectTexts(card, PanelPositiveEffects, PanelNegativeEffects);
     }
+
+    public void backroomsCardClick()
+    {
+        trustSlider.value -= 0.05f;
+    }
     
         private void Update() 
     {
@@ -174,17 +179,18 @@ public class SC_Backrooms : MonoBehaviour
         {
             if (denemeGuncellemeInt == 1) 
             {
+                
                 changePositive1();
                 denemeGuncellemeInt = 0;
                 denemeGuncellemeBool = false;
-                trustSlider.value -= 0.05f;
+                
             }
             else if (denemeGuncellemeInt == 2)
             {
                 changeNegative1();
                 denemeGuncellemeInt = 0;
                 denemeGuncellemeBool = false;
-                trustSlider.value -= 0.05f;
+                
             }
         }
     }
