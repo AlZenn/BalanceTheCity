@@ -1,0 +1,380 @@
+fileFormatVersion: 2
+guid: 8c02e4017922ffb46ac32aeabd79edaf
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8042764270316356762
+    second: "k\u0131rm\u0131z\u0131-mavi_0"
+  - first:
+      213: 98274039481710426
+    second: "k\u0131rm\u0131z\u0131-mavi_1"
+  - first:
+      213: -909115292949093966
+    second: "k\u0131rm\u0131z\u0131-mavi_2"
+  - first:
+      213: 4857102289100831458
+    second: "k\u0131rm\u0131z\u0131-mavi_3"
+  - first:
+      213: 8099947414461107113
+    second: "k\u0131rm\u0131z\u0131-mavi_4"
+  - first:
+      213: 7185179057043344575
+    second: "k\u0131rm\u0131z\u0131-mavi_5"
+  - first:
+      213: 431703509711019130
+    second: "k\u0131rm\u0131z\u0131-mavi_6"
+  - first:
+      213: 2988697947862578435
+    second: "k\u0131rm\u0131z\u0131-mavi_7"
+  - first:
+      213: -4400007071863183794
+    second: "k\u0131rm\u0131z\u0131-mavi_8"
+  - first:
+      213: 1413381019721740131
+    second: "k\u0131rm\u0131z\u0131-mavi_9"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_0"
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 509
+        width: 702
+        height: 552
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66bf69f228c526090800000000000000
+      internalID: -8042764270316356762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_1"
+      rect:
+        serializedVersion: 2
+        x: 829
+        y: 669
+        width: 322
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5733fdd7b32d5100800000000000000
+      internalID: 98274039481710426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_2"
+      rect:
+        serializedVersion: 2
+        x: 1189
+        y: 669
+        width: 322
+        height: 342
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b1e4ef257c2263f0800000000000000
+      internalID: -909115292949093966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_3"
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 219
+        width: 652
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ea77934cc4e76340800000000000000
+      internalID: 4857102289100831458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_4"
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 339
+        width: 132
+        height: 132
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab4c42124bc86070800000000000000
+      internalID: 8099947414461107113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_5"
+      rect:
+        serializedVersion: 2
+        x: 1029
+        y: 349
+        width: 352
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbc05ae9842e6b360800000000000000
+      internalID: 7185179057043344575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_6"
+      rect:
+        serializedVersion: 2
+        x: 1429
+        y: 349
+        width: 352
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c5d980e08bdf500800000000000000
+      internalID: 431703509711019130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_7"
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 9
+        width: 472
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 305b943e2fcf97920800000000000000
+      internalID: 2988697947862578435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_8"
+      rect:
+        serializedVersion: 2
+        x: 559
+        y: 9
+        width: 472
+        height: 152
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e46636061e800f2c0800000000000000
+      internalID: -4400007071863183794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "k\u0131rm\u0131z\u0131-mavi_9"
+      rect:
+        serializedVersion: 2
+        x: 1219
+        y: 149
+        width: 652
+        height: 162
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36f2bcc8c865d9310800000000000000
+      internalID: 1413381019721740131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

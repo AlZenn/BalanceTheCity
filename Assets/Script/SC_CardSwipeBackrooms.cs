@@ -3,14 +3,17 @@ using UnityEngine.EventSystems;
 
 public class SC_CardSwipeBackrooms : MonoBehaviour
 {
-    [Header("Diğer Scriptler")] public SC_Backrooms ScriptBackrooms;
-    
+    [Header("Diğer Scriptler")] 
+    public SC_Backrooms ScriptBackrooms;
+    public SC_ResourceManager ScriptResourceManager;
+
     [Header("Kart Kaydırma Elementleri")] 
     private Vector3 initialPosition;
     [SerializeField] private int targetDistance = 450;
     [SerializeField] private bool isDragging = false;
     void Start()
     {
+        ScriptResourceManager = GameObject.FindWithTag("GameUI").GetComponent<SC_ResourceManager>();
         initialPosition = transform.position; // Objenin başlangıç pozisyonunu kaydet
     }
     public void OnPointerDown(BaseEventData data) // Event trigger componentine bağlı
@@ -45,7 +48,8 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
         {
             ScriptBackrooms.denemeGuncellemeBool = true;
             ScriptBackrooms.denemeGuncellemeInt = 1;
-            
+            //ScriptResourceManager.SaveGame();
+            //ScriptBackrooms.SaveTrust();
             Debug.Log("kabul edildi");
         }
         else if (distanceX <= -targetDistance) // Solda bırakıldıysa
@@ -53,6 +57,8 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
             ScriptBackrooms.denemeGuncellemeBool = true;
             ScriptBackrooms.denemeGuncellemeInt = 2;
             
+            //ScriptResourceManager.SaveGame();
+            //ScriptBackrooms.SaveTrust();
             Debug.Log("reddedildi");
         }
 

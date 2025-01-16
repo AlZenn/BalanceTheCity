@@ -5,26 +5,329 @@ using System.Collections.Generic;
 
 public class SC_ResourceManager : MonoBehaviour
 {
-    [Header("Temel Unsurlar")]
+
+    // Resource Sliderları
+    public Slider happinessSlider;
+    public Slider cleanlinessSlider;
+    public Slider powerSlider;
+    public Slider moneySlider;
+    // Temel Unsurlar
     public int happiness = 10;
     public int cleanliness = 10;
     public int power = 10;
     public int money = 10;
-    
-    [Header("Kaynak Text Objeleri")]
+
+    // Kaynak Text Objeleri
     public Text[] cardEffectsPositiveTexts;
     public Text[] cardEffectsNegativeTexts;
     public Text[] gameEffectsTexts;
 
-    
+    // Gün Sistemi Elemanları
+    public int day;
+    [SerializeField] private Text dayText;
+
+    // Scripts
+    private SC_Backrooms ScriptBackrooms;
+
+
+    private int previousHappiness;
+    private int previousCleanliness;
+    private int previousPower;
+    private int previousMoney;
+
+    // Ardışık artış sayaçları
+    [SerializeField] public int consecutiveCleanlinessIncreases;
+    [SerializeField] public int consecutivePowerIncreases;
+    [SerializeField] public int consecutiveHappinessIncreases;
+    [SerializeField] public int consecutiveMoneyIncreases;
+
+    private List<Effect> activeEffects = new List<Effect>();
+    public SC_RandomEventController ScriptRandomEventController;
     private void Start()
     {
+        UpdateSliders();
+        LoadGame();
+        ScriptBackrooms = GameObject.FindWithTag("GameUI").GetComponent<SC_Backrooms>();
+        ScriptRandomEventController = this.GetComponent<SC_RandomEventController>();
+        dayText.text = "Day: " + day;
+        ScriptBackrooms.ButtonBackrooms();
+
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
+
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void SaveGame()
+    {
+        PlayerPrefs.SetInt("Happiness", happiness);
+        PlayerPrefs.SetInt("Cleanliness", cleanliness);
+        PlayerPrefs.SetInt("Power", power);
+        PlayerPrefs.SetInt("Money", money);
+        PlayerPrefs.SetInt("day", day);
+        PlayerPrefs.Save();
+        Debug.Log("Game Saved!");
+    }
+
+    public void LoadGame()
+    {
+        if (PlayerPrefs.HasKey("Happiness") || PlayerPrefs.HasKey("Cleanliness"))
+        {
+            happiness = PlayerPrefs.GetInt("Happiness");
+            cleanliness = PlayerPrefs.GetInt("Cleanliness");
+            power = PlayerPrefs.GetInt("Power");
+            money = PlayerPrefs.GetInt("Money");
+
+            gameEffectsTexts[0].text = happiness.ToString();
+            gameEffectsTexts[1].text = cleanliness.ToString();
+            gameEffectsTexts[2].text = power.ToString();
+            gameEffectsTexts[3].text = money.ToString();
+
+            Debug.Log("Game Loaded!");
+            UpdateSliders();
+        }
+        else
+        {
+            happiness = 10;
+            cleanliness = 10;
+            power = 10;
+            money = 10;
+
+            gameEffectsTexts[0].text = happiness.ToString();
+            gameEffectsTexts[1].text = cleanliness.ToString();
+            gameEffectsTexts[2].text = power.ToString();
+            gameEffectsTexts[3].text = money.ToString();
+        }
+
+        if (PlayerPrefs.HasKey("Day"))
+        {
+            day = PlayerPrefs.GetInt("Day");
+            dayText.text = "Day: " + day;
+            Debug.Log("Day Loaded!");
+        }
+        else
+        {
+            day = 1;
+            dayText.text = "Day: " + day;
+        }
+    }
+
+    public void daySave()
+    {
+        PlayerPrefs.SetInt("Day", day);
+    }
+
+    
+    public void dayTextUpdate()
+    {
+        day++;
+
+        ScriptRandomEventController.RandomEventTrigger();
+        
+        dayText.text = "Day: " + day;
+        ScriptBackrooms.ButtonBackrooms();
+        daySave();
+        UpdateActiveEffects();
+        UpdateSliders();
+    }
+
+    private void UpdateActiveEffects()
+    {
+        List<Effect> effectsToRemove = new List<Effect>();
+
+        foreach (Effect effect in activeEffects)
+        {
+            ApplyEffect(effect);
+
+            effect.duration--;
+            if (effect.duration <= 0)
+            {
+                effectsToRemove.Add(effect);
+            }
+        }
+
+        foreach (Effect effect in effectsToRemove)
+        {
+            activeEffects.Remove(effect);
+        }
+
+        // Güncel değerleri UI'a yansıt
         gameEffectsTexts[0].text = happiness.ToString();
         gameEffectsTexts[1].text = cleanliness.ToString();
         gameEffectsTexts[2].text = power.ToString();
         gameEffectsTexts[3].text = money.ToString();
-        
+
+        UpdateSliders();
     }
+
+    private void ApplyEffect(Effect effect)
+    {
+        happiness += effect.happinessChange;
+        cleanliness += effect.cleanlinessChange;
+        power += effect.powerChange;
+        money += effect.moneyChange;
+
+        // Ardışık artışları güncelle
+        UpdateConsecutiveIncreases(effect.happinessChange, effect.cleanlinessChange, effect.powerChange, effect.moneyChange);
+        UpdateSliders();
+    }
+
+    public void ApplyBuildingEffect(Effect effect)
+    {
+        UpdateSliders();
+        Effect newEffect = new Effect(
+            effect.happinessChange,
+            effect.cleanlinessChange,
+            effect.powerChange,
+            effect.moneyChange,
+            3 // Etki süresi 5 gün
+        );
+
+        activeEffects.Add(newEffect);
+    }
+    public void UpdateSliders()
+    {
+        Debug.Log("Updating sliders: " + happiness + ", " + cleanliness + ", " + power + ", " + money);
+        happinessSlider.value = happiness;
+        cleanlinessSlider.value = cleanliness;
+        powerSlider.value = power;
+        moneySlider.value = money;
+    }
+
+    public void UpdateSliderMaxValues(int maxHappiness, int maxCleanliness, int maxPower, int maxMoney)
+    {
+        happinessSlider.maxValue = maxHappiness;
+        cleanlinessSlider.maxValue = maxCleanliness;
+        powerSlider.maxValue = maxPower;
+        moneySlider.maxValue = maxMoney;
+    }
+
+    public void UpdateStats(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
+    {
+        UpdateSliders();
+        UpdateConsecutiveIncreases(happinessChange, cleanlinessChange, powerChange, moneyChange);
+
+        happiness += happinessChange;
+        cleanliness += cleanlinessChange;
+        power += powerChange;
+        money += moneyChange;
+
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
+
+        // Güncel değerleri UI'a yansıt
+        gameEffectsTexts[0].text = happiness.ToString();
+        gameEffectsTexts[1].text = cleanliness.ToString();
+        gameEffectsTexts[2].text = power.ToString();
+        gameEffectsTexts[3].text = money.ToString();
+    }
+
+    private void UpdateConsecutiveIncreases(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
+    {
+        if (happinessChange > 0 && happiness > previousHappiness)
+        {
+            consecutiveHappinessIncreases++;
+        }
+        else
+        {
+            consecutiveHappinessIncreases = 0;
+        }
+
+        if (cleanlinessChange > 0 && cleanliness > previousCleanliness)
+        {
+            consecutiveCleanlinessIncreases++;
+        }
+        else
+        {
+            consecutiveCleanlinessIncreases = 0;
+        }
+
+        if (powerChange > 0 && power > previousPower)
+        {
+            consecutivePowerIncreases++;
+        }
+        else
+        {
+            consecutivePowerIncreases = 0;
+        }
+
+        if (moneyChange > 0 && money > previousMoney)
+        {
+            consecutiveMoneyIncreases++;
+        }
+        else
+        {
+            consecutiveMoneyIncreases = 0;
+        }
+
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
+    }
+
+    public void IncreaseCleanliness(int amount)
+    {
+        UpdateSliders();
+        cleanliness += amount;
+        consecutiveCleanlinessIncreases++;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void IncreasePower(int amount)
+    {
+        UpdateSliders();
+        power += amount;
+        consecutivePowerIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void IncreaseHappiness(int amount)
+    {
+        UpdateSliders();
+        happiness += amount;
+        consecutiveHappinessIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void IncreaseMoney(int amount)
+    {
+        UpdateSliders();
+        money += amount;
+        consecutiveMoneyIncreases++;
+        consecutiveCleanlinessIncreases = 0;
+        consecutivePowerIncreases = 0;
+        consecutiveHappinessIncreases = 0;
+    }
+
+    public void IncreaseCleanlinessAndHappiness(int cleanlinessAmount, int happinessAmount)
+    {
+        UpdateSliders();
+        cleanliness += cleanlinessAmount;
+        happiness += happinessAmount;
+        consecutiveCleanlinessIncreases++;
+        consecutiveHappinessIncreases++;
+        consecutivePowerIncreases = 0;
+        consecutiveMoneyIncreases = 0;
+    }
+
+    public void ResetCleanlinessIncreases() => consecutiveCleanlinessIncreases = 0;
+    public void ResetPowerIncreases() => consecutivePowerIncreases = 0;
+    public void ResetHappinessIncreases() => consecutiveHappinessIncreases = 0;
+    public void ResetMoneyIncreases() => consecutiveMoneyIncreases = 0;
 
     public List<Card> lowCards = new List<Card>
     {
@@ -58,7 +361,6 @@ public class SC_ResourceManager : MonoBehaviour
         new Card("Sel Felaketi", new Effect(-5, -5, 0, -5), new Effect(-5, -5, 0, -5))
     };
 
-    // Bonus kartlar
     public List<Card> bonusCards = new List<Card>
     {
         new Card("Yerel Festivale Katılım", new Effect(3, 0, 0, 0), new Effect(0, 0, 0, 0)),
@@ -69,16 +371,33 @@ public class SC_ResourceManager : MonoBehaviour
         new Card("Doğal Kaynak Bağışı", new Effect(3, 2, 0, 0), new Effect(0, 0, 0, 0))
     };
 
+    public List<Card> buildingCards = new List<Card>()
+    {
+        new Card("Tiyatro", new Effect(1, 0, 0, 0, 3), new Effect(0, 0, 0, 0)),
+        new Card("Sponsor", new Effect(-1, 0, 0, 1, 3), new Effect(0, 0, 0, 0)),
+        new Card("Geri Dönüşüm Haftası", new Effect(0, 1, 0, 0, 3), new Effect(0, 0, 0, 0)),
+        new Card("Konser", new Effect(1, 0, 0, 0, 3), new Effect(0, 0, 0, 0)),
+        new Card("Müze", new Effect(0, 0, 1, 0, 3), new Effect(0, 0, 0, 0)),
+        new Card("Vergi Tatili", new Effect(1, 0, 0, -1, 3), new Effect(0, 0, 0, 0)),
+        new Card("Enerji Tasarrufu", new Effect(0, 0, 1, 0, 3), new Effect(0, 0, 0, 0)),
+        new Card("avm", new Effect(0, 0, 0, 1, 3), new Effect(0, 0, 0, 0)),
+        
+    };
+
+
+    public List<Card> PeopleCards = new List<Card>()
+    {
+
+    };
 }
 
-// Kart bilgisi
 [System.Serializable]
 public class Card
 {
-    public string name; // Kart adı
-    public Sprite cardPhoto; // kart Sprite'ı
-    public Effect approveEffect; // Onay etkisi
-    public Effect rejectEffect; // Reddetme etkisi
+    public string name;
+    public Sprite cardPhoto;
+    public Effect approveEffect;
+    public Effect rejectEffect;
 
     public Card(string name, Effect approveEffect, Effect rejectEffect)
     {
@@ -88,7 +407,6 @@ public class Card
     }
 }
 
-// Kaynaklara olan etkiler
 [System.Serializable]
 public class Effect
 {
@@ -96,12 +414,14 @@ public class Effect
     public int cleanlinessChange;
     public int powerChange;
     public int moneyChange;
+    public int duration; 
 
-    public Effect(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
+    public Effect(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange, int duration = 0)
     {
         this.happinessChange = happinessChange;
         this.cleanlinessChange = cleanlinessChange;
         this.powerChange = powerChange;
         this.moneyChange = moneyChange;
+        this.duration = duration; 
     }
 }

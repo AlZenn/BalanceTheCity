@@ -48,12 +48,20 @@ public class SC_Backrooms : MonoBehaviour
     
     private void Awake()
     {
+        
+        ScriptResourceManager = GameObject.FindWithTag("GameUI").GetComponent<SC_ResourceManager>();
+
         BackroomsObject.SetActive(false);
-        trustSlider.value = 1f;
+
         if (CardDetailPanel != null)
         {
             CardDetailPanel.SetActive(false); // Kart detay panelini başlangıçta kapat
         }
+    }
+
+    private void Start()
+    {
+        LoadTrust();
     }
 
     public void ButtonBackrooms()
@@ -66,7 +74,7 @@ public class SC_Backrooms : MonoBehaviour
         
         card1.SetActive(true);
         card2.SetActive(true);
-        BackroomsObject.SetActive(true); // Backrooms ekranını açıyoruz.
+        //BackroomsObject.SetActive(true); // Backrooms ekranını açıyoruz.
 
         // İlk kartı seç
         selectedCard1 = SelectCardForBackroom(1);
@@ -166,6 +174,11 @@ public class SC_Backrooms : MonoBehaviour
         PanelPhoto.sprite = card.cardPhoto;
         UpdateEffectTexts(card, PanelPositiveEffects, PanelNegativeEffects);
     }
+
+    public void backroomsCardClick()
+    {
+        trustSlider.value -= 0.05f;
+    }
     
         private void Update() 
     {
@@ -174,17 +187,18 @@ public class SC_Backrooms : MonoBehaviour
         {
             if (denemeGuncellemeInt == 1) 
             {
+                
                 changePositive1();
                 denemeGuncellemeInt = 0;
                 denemeGuncellemeBool = false;
-                trustSlider.value -= 0.05f;
+                
             }
             else if (denemeGuncellemeInt == 2)
             {
                 changeNegative1();
                 denemeGuncellemeInt = 0;
                 denemeGuncellemeBool = false;
-                trustSlider.value -= 0.05f;
+                
             }
         }
     }
@@ -194,6 +208,7 @@ public class SC_Backrooms : MonoBehaviour
         CardDetailPanel.SetActive(false);
         Debug.Log("Kart onaylandı ve pozitif etkiler uygulandı.");
         trustSlider.value -= 0.1f;
+        SaveTrust();
     }
 
     public void changeNegative1()
@@ -202,6 +217,7 @@ public class SC_Backrooms : MonoBehaviour
         CardDetailPanel.SetActive(false);
         Debug.Log("Kart reddedildi ve negatif etkiler uygulandı.");
         trustSlider.value -= 0.1f;
+        SaveTrust();
     }
     
     private void UpdateResourceValues(Text[] effectTexts)
@@ -238,4 +254,25 @@ public class SC_Backrooms : MonoBehaviour
         ScriptResourceManager.power = resourceValues[2];
         ScriptResourceManager.money = resourceValues[3];
     }
+
+
+    public void SaveTrust()
+    {
+        PlayerPrefs.SetFloat("Trust", trustSlider.value);
+    }
+    public void LoadTrust()
+    {
+        if (PlayerPrefs.HasKey("Trust"))
+        {
+            trustSlider.value = PlayerPrefs.GetFloat("Trust");
+            Debug.Log("Trust Slider güncellendi playerprefs");
+        }
+        else
+        {
+            trustSlider.value = 1f;
+        }
+    }
+    
+
+
 }
