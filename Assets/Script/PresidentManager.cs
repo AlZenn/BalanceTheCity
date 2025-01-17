@@ -68,6 +68,7 @@ public class PresidentManager : MonoBehaviour
         maxPower = 35;
         maxHappiness = 35;
 
+        PlayerPrefs.SetInt("Baskan",1);
         SaveMaxValues(); // Maksimum değerleri kaydet
         resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
         UpdateResourceTexts();
@@ -81,6 +82,7 @@ public class PresidentManager : MonoBehaviour
         maxHappiness = 35;
         maxMoney = 35;
 
+        PlayerPrefs.SetInt("Baskan", 1);
         SaveMaxValues(); // Maksimum değerleri kaydet
         resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
         UpdateResourceTexts();
@@ -94,6 +96,7 @@ public class PresidentManager : MonoBehaviour
         maxCleanliness = 35;
         maxMoney = 35;
 
+        PlayerPrefs.SetInt("Baskan", 1);
         SaveMaxValues(); // Maksimum değerleri kaydet
         resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
         UpdateResourceTexts();

@@ -51,7 +51,15 @@ public class MainMenu : MonoBehaviour
 
     private void StartGame()
     {
-        SceneManager.LoadScene(nextLevel);
+        if (PlayerPrefs.HasKey("Baskan"))
+        {
+            SceneManager.LoadScene("game2");
+        }
+        else
+        {
+            SceneManager.LoadScene(nextLevel);
+        }
+        
     }
 
     private void TogglePanel(GameObject panel, bool isActive)
