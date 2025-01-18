@@ -1,28 +1,31 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.AI; // list için gerekli
-using Random = UnityEngine.Random; // random için gerekli
+using UnityEngine.UI; // UI için gerekli
+using Random = UnityEngine.Random;
 
 public class SC_RandomEventController : MonoBehaviour
 {
+    public GameObject WeatherPanel;
+    public Button closeWeather;
     public SC_ResourceManager ScriptResourceManager;
     public GameObject RandomEventCard;
     public List<string> weatherConditions = new List<string> { "kar", "yağmur", "güneş", "sis", "bulutlu" };
     public Sprite[] weatherSprites = new Sprite[5];
-    private SpriteRenderer cardSpriteRenderer; // IMAGE KOYULACAK OBJE ATANACAK
-
+    private SpriteRenderer cardSpriteRenderer;
+    public Text WeatherInfoText;
 
     string selectedWeather;
     private bool isActiveEvent = false;
     private int eventDelayDay = 0;
+
     private void Awake()
     {
         RandomEventCard = GameObject.FindWithTag("RandomEventCard");
         RandomEventCard.SetActive(false);
+        WeatherPanel.SetActive(false); 
 
-
-
+        closeWeather.onClick.AddListener(CloseWeatherPanel);
     }
 
     public void RandomEventTrigger()
@@ -33,10 +36,10 @@ public class SC_RandomEventController : MonoBehaviour
         {
             int randomIndex = Random.Range(0, weatherConditions.Count); // Listeyi karıştır
             selectedWeather = weatherConditions[randomIndex];
+            ShowWeatherPanel(selectedWeather); 
             activeEvent(selectedWeather);
             Debug.Log("event delay day :" + eventDelayDay);
             Debug.Log("mevcut yeni event :" + selectedWeather);
-
 
             isActiveEvent = true;
             eventDelayDay = 5;
@@ -49,14 +52,13 @@ public class SC_RandomEventController : MonoBehaviour
                 eventDelayDay--;
                 Debug.Log("event delay day :" + eventDelayDay);
                 Debug.Log("mevcut event :" + selectedWeather);
-
             }
         }
     }
 
     public void activeEvent(string selectedEvent)
     {
-        if (isActiveEvent == true)
+        if (isActiveEvent == true && selectedEvent != null)
         {
             // 5 gün sonrası için durumu uygula
             if (selectedEvent == weatherConditions[0]) // kar ise
@@ -88,6 +90,19 @@ public class SC_RandomEventController : MonoBehaviour
         }
     }
 
+    
+    public void ShowWeatherPanel(string weatherCondition)
+    {
+        WeatherPanel.SetActive(true);
+        WeatherInfoText.text = "Bugün hava " + weatherCondition + ".";
+    }
+
+    
+    public void CloseWeatherPanel()
+    {
+        WeatherPanel.SetActive(false);
+    }
+
     // Mutluluk etkileme fonksiyonu
     public void applyActiveEventHapiness()
     {
@@ -105,6 +120,7 @@ public class SC_RandomEventController : MonoBehaviour
         ScriptResourceManager.cleanliness--;
         ScriptResourceManager.gameEffectsTexts[1].text = ScriptResourceManager.cleanliness.ToString(); // temizlik
     }
+
     public void applyActiveEventPower()
     {
         RandomEventCard.SetActive(true);
@@ -112,11 +128,12 @@ public class SC_RandomEventController : MonoBehaviour
         ScriptResourceManager.power--;
         ScriptResourceManager.gameEffectsTexts[2].text = ScriptResourceManager.power.ToString(); // güç
     }
+
     public void applyActiveEventMoney()
     {
         RandomEventCard.SetActive(true);
         Debug.Log("para azaldı");
         ScriptResourceManager.money--;
-        ScriptResourceManager.gameEffectsTexts[3].text = ScriptResourceManager.money.ToString(); //para
+        ScriptResourceManager.gameEffectsTexts[3].text = ScriptResourceManager.money.ToString(); // para
     }
 }

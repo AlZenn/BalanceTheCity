@@ -16,25 +16,33 @@ public class ElectionManager : MonoBehaviour
     public PresidentManager presidentManager;
 
     [Header("Win/Lose Panels")]
-    public GameObject winPanel; // Kazandýnýz paneli
+    public GameObject winPanel; // Kazandï¿½nï¿½z paneli
     public GameObject losePanel; // Kaybettiniz paneli
 
     [Header("Day System Elements")]
-    public int day;
+    //public int day;
     [SerializeField] private Text dayText;
 
     private float totalVotes = 0;
 
     private void Start()
     {
-        // Baþlangýçta panelleri gizle
+        // Baï¿½langï¿½ï¿½ta panelleri gizle
         winPanel.SetActive(false);
         losePanel.SetActive(false);
 
-        // Gün sistemini baþlat
-        dayText.text = "Day: " + day;
+        // Gï¿½n sistemini baï¿½lat
+        if (PlayerPrefs.HasKey("Day"))
+        {
+            dayText.text = "Day: " + PlayerPrefs.GetInt("Day");
+        }
+        else
+        {
+            dayText.text = "Day: " + resourceManager.day;
+        }
+        
 
-        // Butonlarýn satýn alýnma durumlarýný kontrol et ve oy deðerlerini ekle
+        // Butonlarï¿½n satï¿½n alï¿½nma durumlarï¿½nï¿½ kontrol et ve oy deï¿½erlerini ekle
         CheckPurchasedButtons();
         ApplyPresidentEffects();
         UpdateVoteText();
@@ -46,85 +54,85 @@ public class ElectionManager : MonoBehaviour
         {
             totalVotes += 12;
             if (PlayerPrefs.HasKey("LeftWing"))
-                totalVotes += 4; // Boost: Eðer "Left Wing" varsa ekstra +%4 oy
-            if (PlayerPrefs.HasKey("Endüstriyel"))
-                totalVotes -= 3; // Kontra: "Endüstriyel" varsa etkisi %25 azalýr
+                totalVotes += 4; // Boost: Eï¿½er "Left Wing" varsa ekstra +%4 oy
+            if (PlayerPrefs.HasKey("Endï¿½striyel"))
+                totalVotes -= 3; // Kontra: "Endï¿½striyel" varsa etkisi %25 azalï¿½r
         }
         if (PlayerPrefs.HasKey("Buisness"))
         {
             totalVotes += 14;
             if (PlayerPrefs.HasKey("Aktivist"))
-                totalVotes -= 14; // Kontra: "Aktivist" varsa birbirlerini etkisizleþtirir
+                totalVotes -= 14; // Kontra: "Aktivist" varsa birbirlerini etkisizleï¿½tirir
             else if (presidentManager.GetMaxMoney() == 40) // Assuming maxMoney 40 means Economic President
-                totalVotes += 3; // Boost: Ekonomist baþkan varsa ekstra +%3 oy
+                totalVotes += 3; // Boost: Ekonomist baï¿½kan varsa ekstra +%3 oy
         }
         if (PlayerPrefs.HasKey("LeftWing"))
         {
             totalVotes += 13;
             if (PlayerPrefs.HasKey("Aktivist"))
-                totalVotes += 5; // Boost: Eðer "Aktivist" varsa ekstra +%5 oy
+                totalVotes += 5; // Boost: Eï¿½er "Aktivist" varsa ekstra +%5 oy
             if (PlayerPrefs.HasKey("RightWing"))
-                totalVotes -= 13; // Kontra: "Right Wing" varsa birbirlerini etkisizleþtirir
+                totalVotes -= 13; // Kontra: "Right Wing" varsa birbirlerini etkisizleï¿½tirir
         }
         if (PlayerPrefs.HasKey("RightWing"))
         {
             totalVotes += 13;
             if (PlayerPrefs.HasKey("LeftWing"))
-                totalVotes -= 13; // Kontra: "Left Wing" varsa birbirlerini etkisizleþtirir
+                totalVotes -= 13; // Kontra: "Left Wing" varsa birbirlerini etkisizleï¿½tirir
         }
         if (PlayerPrefs.HasKey("Sendikalar"))
         {
             totalVotes += 10;
             if (PlayerPrefs.HasKey("LeftWing"))
-                totalVotes += 3; // Boost: Eðer "Left Wing" varsa ekstra +%3 oy
-            if (PlayerPrefs.HasKey("Endüstriyel"))
-                totalVotes -= 5; // Kontra: "Endüstriyel" varsa etkisi %50 azalýr
+                totalVotes += 3; // Boost: Eï¿½er "Left Wing" varsa ekstra +%3 oy
+            if (PlayerPrefs.HasKey("Endï¿½striyel"))
+                totalVotes -= 5; // Kontra: "Endï¿½striyel" varsa etkisi %50 azalï¿½r
         }
-        if (PlayerPrefs.HasKey("Sanatçýlar"))
+        if (PlayerPrefs.HasKey("Sanatï¿½ï¿½lar"))
         {
             totalVotes += 8;
             if (PlayerPrefs.HasKey("Aktivist"))
-                totalVotes += 3; // Boost: Eðer "Aktivist" varsa ekstra +%3 oy
+                totalVotes += 3; // Boost: Eï¿½er "Aktivist" varsa ekstra +%3 oy
         }
-        if (PlayerPrefs.HasKey("Endüstriyel"))
+        if (PlayerPrefs.HasKey("Endï¿½striyel"))
         {
             totalVotes += 15;
             if (PlayerPrefs.HasKey("Aktivist"))
-                totalVotes -= 4; // Kontra: "Aktivist" varsa etkisi %25 azalýr
+                totalVotes -= 4; // Kontra: "Aktivist" varsa etkisi %25 azalï¿½r
             else if (presidentManager.GetMaxPower() == 40) // Assuming maxPower 40 means Power Focused President
-                totalVotes += 5; // Boost: Güç odaklý baþkan varsa ekstra +%5 oy
+                totalVotes += 5; // Boost: Gï¿½ï¿½ odaklï¿½ baï¿½kan varsa ekstra +%5 oy
         }
-        if (PlayerPrefs.HasKey("Çevreciler"))
+        if (PlayerPrefs.HasKey("ï¿½evreciler"))
         {
             totalVotes += 10;
             if (PlayerPrefs.HasKey("LeftWing"))
-                totalVotes += 3; // Boost: Eðer "Left Wing" varsa ekstra +%3 oy
+                totalVotes += 3; // Boost: Eï¿½er "Left Wing" varsa ekstra +%3 oy
         }
         if (PlayerPrefs.HasKey("Medya"))
         {
             totalVotes += 15;
-            if (PlayerPrefs.HasKey("RightWing") || PlayerPrefs.HasKey("Endüstriyel"))
-                totalVotes += 3; // Boost: Eðer "Right Wing" veya "Endüstriyel" varsa ekstra +%3 oy
+            if (PlayerPrefs.HasKey("RightWing") || PlayerPrefs.HasKey("Endï¿½striyel"))
+                totalVotes += 3; // Boost: Eï¿½er "Right Wing" veya "Endï¿½striyel" varsa ekstra +%3 oy
         }
     }
 
     private void ApplyPresidentEffects()
     {
-        // Ekstra baþkan etkilerini buraya ekleyin
+        // Ekstra baï¿½kan etkilerini buraya ekleyin
         if (presidentManager.GetMaxMoney() == 40)
         {
-            // Economic President bonuslarý
+            // Economic President bonuslarï¿½
             if (PlayerPrefs.HasKey("Buisness"))
             {
-                totalVotes += 3; // Ekonomist baþkan varsa ekstra +%3 oy
+                totalVotes += 3; // Ekonomist baï¿½kan varsa ekstra +%3 oy
             }
         }
         if (presidentManager.GetMaxPower() == 40)
         {
-            // Power Focused President bonuslarý
-            if (PlayerPrefs.HasKey("Endüstriyel"))
+            // Power Focused President bonuslarï¿½
+            if (PlayerPrefs.HasKey("Endï¿½striyel"))
             {
-                totalVotes += 5; // Güç odaklý baþkan varsa ekstra +%5 oy
+                totalVotes += 5; // Gï¿½ï¿½ odaklï¿½ baï¿½kan varsa ekstra +%5 oy
             }
         }
     }
@@ -136,57 +144,57 @@ public class ElectionManager : MonoBehaviour
             case "Aktivist":
                 totalVotes += 12;
                 if (PlayerPrefs.HasKey("LeftWing"))
-                    totalVotes += 4; // Boost: Eðer "Left Wing" varsa ekstra +%4 oy
-                if (PlayerPrefs.HasKey("Endüstriyel"))
-                    totalVotes -= 3; // Kontra: "Endüstriyel" varsa etkisi %25 azalýr
+                    totalVotes += 4; // Boost: Eï¿½er "Left Wing" varsa ekstra +%4 oy
+                if (PlayerPrefs.HasKey("Endï¿½striyel"))
+                    totalVotes -= 3; // Kontra: "Endï¿½striyel" varsa etkisi %25 azalï¿½r
                 break;
             case "Buisness":
                 totalVotes += 14;
                 if (PlayerPrefs.HasKey("Aktivist"))
-                    totalVotes -= 14; // Kontra: "Aktivist" varsa birbirlerini etkisizleþtirir
+                    totalVotes -= 14; // Kontra: "Aktivist" varsa birbirlerini etkisizleï¿½tirir
                 else if (presidentManager.GetMaxMoney() == 40)
-                    totalVotes += 3; // Boost: Ekonomist baþkan varsa ekstra +%3 oy
+                    totalVotes += 3; // Boost: Ekonomist baï¿½kan varsa ekstra +%3 oy
                 break;
             case "LeftWing":
                 totalVotes += 13;
                 if (PlayerPrefs.HasKey("Aktivist"))
-                    totalVotes += 5; // Boost: Eðer "Aktivist" varsa ekstra +%5 oy
+                    totalVotes += 5; // Boost: Eï¿½er "Aktivist" varsa ekstra +%5 oy
                 if (PlayerPrefs.HasKey("RightWing"))
-                    totalVotes -= 13; // Kontra: "Right Wing" varsa birbirlerini etkisizleþtirir
+                    totalVotes -= 13; // Kontra: "Right Wing" varsa birbirlerini etkisizleï¿½tirir
                 break;
             case "RightWing":
                 totalVotes += 13;
                 if (PlayerPrefs.HasKey("LeftWing"))
-                    totalVotes -= 13; // Kontra: "Left Wing" varsa birbirlerini etkisizleþtirir
+                    totalVotes -= 13; // Kontra: "Left Wing" varsa birbirlerini etkisizleï¿½tirir
                 break;
             case "Sendikalar":
                 totalVotes += 10;
                 if (PlayerPrefs.HasKey("LeftWing"))
-                    totalVotes += 3; // Boost: Eðer "Left Wing" varsa ekstra +%3 oy
-                if (PlayerPrefs.HasKey("Endüstriyel"))
-                    totalVotes -= 5; // Kontra: "Endüstriyel" varsa etkisi %50 azalýr
+                    totalVotes += 3; // Boost: Eï¿½er "Left Wing" varsa ekstra +%3 oy
+                if (PlayerPrefs.HasKey("Endï¿½striyel"))
+                    totalVotes -= 5; // Kontra: "Endï¿½striyel" varsa etkisi %50 azalï¿½r
                 break;
-            case "Sanatçýlar":
+            case "Sanatï¿½ï¿½lar":
                 totalVotes += 8;
                 if (PlayerPrefs.HasKey("Aktivist"))
-                    totalVotes += 3; // Boost: Eðer "Aktivist" varsa ekstra +%3 oy
+                    totalVotes += 3; // Boost: Eï¿½er "Aktivist" varsa ekstra +%3 oy
                 break;
-            case "Endüstriyel":
+            case "Endï¿½striyel":
                 totalVotes += 15;
                 if (PlayerPrefs.HasKey("Aktivist"))
-                    totalVotes -= 4; // Kontra: "Aktivist" varsa etkisi %25 azalýr
+                    totalVotes -= 4; // Kontra: "Aktivist" varsa etkisi %25 azalï¿½r
                 else if (presidentManager.GetMaxPower() == 40)
-                    totalVotes += 5; // Boost: Güç odaklý baþkan varsa ekstra +%5 oy
+                    totalVotes += 5; // Boost: Gï¿½ï¿½ odaklï¿½ baï¿½kan varsa ekstra +%5 oy
                 break;
-            case "Çevreciler":
+            case "ï¿½evreciler":
                 totalVotes += 10;
                 if (PlayerPrefs.HasKey("LeftWing"))
-                    totalVotes += 3; // Boost: Eðer "Left Wing" varsa ekstra +%3 oy
+                    totalVotes += 3; // Boost: Eï¿½er "Left Wing" varsa ekstra +%3 oy
                 break;
             case "Medya":
                 totalVotes += 15;
-                if (PlayerPrefs.HasKey("RightWing") || PlayerPrefs.HasKey("Endüstriyel"))
-                    totalVotes += 3; // Boost: Eðer "Right Wing" veya "Endüstriyel" varsa ekstra +%3 oy
+                if (PlayerPrefs.HasKey("RightWing") || PlayerPrefs.HasKey("Endï¿½striyel"))
+                    totalVotes += 3; // Boost: Eï¿½er "Right Wing" veya "Endï¿½striyel" varsa ekstra +%3 oy
                 break;
         }
 
@@ -201,7 +209,7 @@ public class ElectionManager : MonoBehaviour
 
     private void CheckWinOrLose()
     {
-        if (day >= 30)
+        if (resourceManager.day >= 30)
         {
             if (totalVotes >= 50)
             {
@@ -223,13 +231,13 @@ public class ElectionManager : MonoBehaviour
 
     public void daySave()
     {
-        PlayerPrefs.SetInt("Day", day);
+        PlayerPrefs.SetInt("Day", resourceManager.day);
     }
 
     public void dayTextUpdate()
     {
-        day++;
-        dayText.text = "Day: " + day;
+        resourceManager.day++;
+        dayText.text = "Day: " + resourceManager.day;
 
         daySave();
         CheckWinOrLose();

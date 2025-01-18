@@ -59,8 +59,10 @@ public class ShopManager : MonoBehaviour
         CheckButtonUnlockConditions();
     }
 
+    
     void LockAllButtons()
     {
+        /*
         AktivistButton.interactable = false;
         BuisnessButton.interactable = false;
         LeftWingButton.interactable = false;
@@ -70,7 +72,9 @@ public class ShopManager : MonoBehaviour
         EndüstriyelButton.interactable = false;
         ÇevrecilerButton.interactable = false;
         MedyaButton.interactable = false;
+        */
     }
+
 
     void SetButtonListeners()
     {
@@ -98,6 +102,7 @@ public class ShopManager : MonoBehaviour
         confirmationPanel.SetActive(true);
     }
 
+    //sendikalar
     void ShowConfirmationPanel(Button button, int requiredAmount1, string resourceType1, int requiredAmount2, string resourceType2, string buttonKey, Sprite sprite)
     {
         currentButton = button;
@@ -218,6 +223,7 @@ public class ShopManager : MonoBehaviour
         {
             Debug.Log($"{button.name} satın almak için yeterli {resourceType} yok.");
         }
+        Debug.Log($"Kalan {resourceType}: {resourceManager.cleanliness}, {resourceManager.happiness}, {resourceManager.power}, {resourceManager.money}");
 
         UpdateResourceTexts();
     }
@@ -239,6 +245,8 @@ public class ShopManager : MonoBehaviour
                 resourceManager.happiness -= requiredAmount2;
             }
         }
+        Debug.Log($"Kalan {resourceType}: {resourceManager.cleanliness}, {resourceManager.happiness}, {resourceManager.power}, {resourceManager.money}");
+
 
         // Eğer kullanıcı yeterli kaynağa sahipse, buton kilitlenir ve durumu kaydedilir
         if (canBuy)
@@ -280,5 +288,6 @@ public class ShopManager : MonoBehaviour
         resourceManager.gameEffectsTexts[1].text = resourceManager.cleanliness.ToString();
         resourceManager.gameEffectsTexts[2].text = resourceManager.power.ToString();
         resourceManager.gameEffectsTexts[3].text = resourceManager.money.ToString();
+        resourceManager.UpdateSliders();
     }
 }

@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "gerid\xF6nus_0": -6642906778890640265
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

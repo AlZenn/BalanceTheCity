@@ -140,16 +140,24 @@ TextureImporter:
       name: Sunny_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 219
-        width: 72
-        height: 62
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
-      physicsShape: []
+      outline:
+      - - {x: 0, y: -160}
+        - {x: 160, y: 0}
+        - {x: 0, y: 160}
+        - {x: -160, y: 0}
+      physicsShape:
+      - - {x: 0, y: -160}
+        - {x: 160, y: 0}
+        - {x: 0, y: 160}
+        - {x: -160, y: 0}
       tessellationDetail: -1
       bones: []
       spriteID: b0fd051c7e24c4810800000000000000
@@ -158,187 +166,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Sunny_1
-      rect:
-        serializedVersion: 2
-        x: 139
-        y: 239
-        width: 52
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 33eadf218e3398960800000000000000
-      internalID: 7604666517635837491
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_2
-      rect:
-        serializedVersion: 2
-        x: 209
-        y: 209
-        width: 72
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 73da8e22b692e06e0800000000000000
-      internalID: -1869511255188263625
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 139
-        width: 81
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e883e2f9d00d8fe80800000000000000
-      internalID: -8144531169175783282
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_4
-      rect:
-        serializedVersion: 2
-        x: 89
-        y: 89
-        width: 142
-        height: 142
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b087dfefa31d87730800000000000000
-      internalID: 3997174720607647755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_5
-      rect:
-        serializedVersion: 2
-        x: 239
-        y: 129
-        width: 81
-        height: 52
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71ef65bd1a219e8b0800000000000000
-      internalID: -5122542614778282473
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_6
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 29
-        width: 72
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4abe340ba590a0c10800000000000000
-      internalID: 2020437667938036644
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_7
-      rect:
-        serializedVersion: 2
-        x: 129
-        y: 0
-        width: 52
-        height: 81
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 45df6ea6ee0398810800000000000000
-      internalID: 1767998129273503060
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Sunny_8
-      rect:
-        serializedVersion: 2
-        x: 219
-        y: 39
-        width: 72
-        height: 62
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6342f81fe3e6ff160800000000000000
-      internalID: 7061483957359944758
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 95bc6de2848170147a9452b61233b42f
     internalID: 0
     vertices: []
     indices: 
@@ -347,7 +179,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Sunny_0: 1750847918288461579
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 public class SC_ResourceManager : MonoBehaviour
 {
@@ -12,10 +13,10 @@ public class SC_ResourceManager : MonoBehaviour
     public Slider powerSlider;
     public Slider moneySlider;
     // Temel Unsurlar
-    public int happiness = 10;
-    public int cleanliness = 10;
-    public int power = 10;
-    public int money = 10;
+    public int happiness = 20;
+    public int cleanliness = 20;
+    public int power = 20;
+    public int money = 20;
 
     // Kaynak Text Objeleri
     public Text[] cardEffectsPositiveTexts;
@@ -43,6 +44,7 @@ public class SC_ResourceManager : MonoBehaviour
 
     private List<Effect> activeEffects = new List<Effect>();
     public SC_RandomEventController ScriptRandomEventController;
+
     private void Start()
     {
         UpdateSliders();
@@ -50,6 +52,8 @@ public class SC_ResourceManager : MonoBehaviour
         ScriptBackrooms = GameObject.FindWithTag("GameUI").GetComponent<SC_Backrooms>();
         ScriptRandomEventController = this.GetComponent<SC_RandomEventController>();
         dayText.text = "Day: " + day;
+
+        
         ScriptBackrooms.ButtonBackrooms();
 
         previousHappiness = happiness;
@@ -69,7 +73,7 @@ public class SC_ResourceManager : MonoBehaviour
         PlayerPrefs.SetInt("Cleanliness", cleanliness);
         PlayerPrefs.SetInt("Power", power);
         PlayerPrefs.SetInt("Money", money);
-        PlayerPrefs.SetInt("day", day);
+        PlayerPrefs.SetInt("Day", day);
         PlayerPrefs.Save();
         Debug.Log("Game Saved!");
     }
@@ -93,10 +97,10 @@ public class SC_ResourceManager : MonoBehaviour
         }
         else
         {
-            happiness = 10;
-            cleanliness = 10;
-            power = 10;
-            money = 10;
+            happiness = 20;
+            cleanliness = 20;
+            power = 20;
+            money = 20;
 
             gameEffectsTexts[0].text = happiness.ToString();
             gameEffectsTexts[1].text = cleanliness.ToString();
@@ -193,19 +197,26 @@ public class SC_ResourceManager : MonoBehaviour
     public void UpdateSliders()
     {
         Debug.Log("Updating sliders: " + happiness + ", " + cleanliness + ", " + power + ", " + money);
-        happinessSlider.value = happiness;
-        cleanlinessSlider.value = cleanliness;
-        powerSlider.value = power;
-        moneySlider.value = money;
+
+        // Slider'ların değerlerini normalize ederek güncelle
+        happinessSlider.value = (float)happiness;
+        cleanlinessSlider.value = (float)cleanliness;
+        powerSlider.value = (float)power;
+        moneySlider.value = (float)money;
     }
 
     public void UpdateSliderMaxValues(int maxHappiness, int maxCleanliness, int maxPower, int maxMoney)
     {
+        // Slider'ların maksimum değerlerini ayarla
         happinessSlider.maxValue = maxHappiness;
         cleanlinessSlider.maxValue = maxCleanliness;
         powerSlider.maxValue = maxPower;
         moneySlider.maxValue = maxMoney;
+
+        // İlk değerleri normalize et
+        UpdateSliders();
     }
+
 
     public void UpdateStats(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
     {
@@ -384,6 +395,12 @@ public class SC_ResourceManager : MonoBehaviour
         
     };
 
+    public List<Card> incidentCards = new List<Card>()
+    {
+        new Card("yngin", new Effect(0, 0, 0, 0), new Effect(0, 0, 0, 0)),
+        new Card("deprem", new Effect(0, 0, 0, 0), new Effect(0, 0, 0, 0)),
+        new Card("kar", new Effect(0, 0, 0, 0), new Effect(0, 0, 0, 0))
+    };
 
     public List<Card> PeopleCards = new List<Card>()
     {
@@ -414,7 +431,8 @@ public class Effect
     public int cleanlinessChange;
     public int powerChange;
     public int moneyChange;
-    public int duration; 
+    public int duration;
+    private static System.Random random = new System.Random();
 
     public Effect(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange, int duration = 0)
     {
@@ -423,5 +441,10 @@ public class Effect
         this.powerChange = powerChange;
         this.moneyChange = moneyChange;
         this.duration = duration; 
+    }
+
+    public static int ConvertToRandomValue()
+    {
+        return random.Next(5, 35);
     }
 }

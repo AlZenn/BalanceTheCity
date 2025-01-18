@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      petrolrezerv_bonus__0: 6828305338839330605
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

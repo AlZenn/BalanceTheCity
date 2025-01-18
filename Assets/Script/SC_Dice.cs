@@ -145,8 +145,18 @@ public class SC_Dice : MonoBehaviour
 
         currentCard = null;
 
-        // %15 ihtimalle buildingCards listesinden kart seç
-        if (Random.value <= 0.15f)
+        // %5 ihtimalle incidentCards listesinden kart seç
+        if (Random.value <= 0.05f)
+        {
+            if (ScriptResourceManager.incidentCards != null && ScriptResourceManager.incidentCards.Count > 0)
+            {
+                int randomIndex = Random.Range(0, ScriptResourceManager.incidentCards.Count);
+                currentCard = ScriptResourceManager.incidentCards[randomIndex];
+            }
+        }
+
+        // %10 ihtimalle buildingCards listesinden kart seç
+        if (currentCard == null && Random.value <= 0.10f)
         {
             if (ScriptResourceManager.buildingCards != null && ScriptResourceManager.buildingCards.Count > 0)
             {
@@ -156,7 +166,7 @@ public class SC_Dice : MonoBehaviour
         }
 
         // %85 ihtimalle diğer kart listelerinden kart seç
-        if (currentCard == null) // Eğer buildingCards listesinden seçilmediyse
+        if (currentCard == null) // Eğer incidentCards veya buildingCards listesinden seçilmediyse
         {
             if (diceResult >= 1 && diceResult <= 3)
             {
@@ -391,6 +401,7 @@ public class SC_Dice : MonoBehaviour
         Card_Object.SetActive(false);
         Debug.Log("kart onaylandı");
         isSwitched = false;
+        ScriptResourceManager.UpdateSliders();
         ScriptResourceManager.SaveGame();
     }
 
@@ -410,6 +421,12 @@ public class SC_Dice : MonoBehaviour
         ScriptResourceManager.cleanliness = sonuc2;
         ScriptResourceManager.power = sonuc3;
         ScriptResourceManager.money = sonuc4;
-            
+
+        Card_Object.SetActive(false);
+        Debug.Log("kart reddedildi");
+        isSwitched = false;
+        ScriptResourceManager.UpdateSliders();
+        ScriptResourceManager.SaveGame();
+
     }
 }

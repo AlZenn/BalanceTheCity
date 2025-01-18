@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      baskan1_Card_0: 7278217263876755964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

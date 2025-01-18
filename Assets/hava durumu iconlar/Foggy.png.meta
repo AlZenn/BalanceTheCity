@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Foggy_0: -2210633417576437263
+      Foggy_1: 9059888623770564894
+      Foggy_2: -2294500147716157292
+      Foggy_3: -9020310240131481795
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -222,7 +222,11 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      logolar_0: 1970190564298660972
+      logolar_1: -4831164206145089416
+      logolar_2: -7710291673233549171
+      logolar_3: 2587423750142377270
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
