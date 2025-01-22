@@ -598,6 +598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   videoPlayerObject: {fileID: 949888253}
   nextSceneName: game2
+  videoPlayer: {fileID: 949888255}
 --- !u!1 &2117114087
 GameObject:
   m_ObjectHideFlags: 0
