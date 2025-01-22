@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      siyah_0: -4316380220129887891
+      siyah_1: 3337099253208969164
+      siyah_2: -6617282305519737683
+      siyah_3: 8073634531898191915
+      siyah_4: 5595857064423675686
+      siyah_5: -2726845477118329838
+      siyah_6: 1071182009980787129
+      siyah_7: -3308829131364936981
+      siyah_8: -1897192457815028873
+      siyah_9: 5703660938898134660
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

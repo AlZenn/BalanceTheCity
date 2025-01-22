@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      morgri_0: 8234069200169096431
+      morgri_1: 2867629513733895570
+      morgri_2: -5453436146996919389
+      morgri_3: 8548744507215000199
+      morgri_4: 5503654916842277937
+      morgri_5: -1314543381208727751
+      morgri_6: 2044228117582909001
+      morgri_7: -2655777407614582628
+      morgri_8: 649545516148602930
+      morgri_9: -6577408702662592246
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

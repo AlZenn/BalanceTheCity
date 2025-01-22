@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      kahverengi_0: 8171259156260023905
+      kahverengi_1: 7760724045900065427
+      kahverengi_2: -5439273333486406983
+      kahverengi_3: 4555745427140492481
+      kahverengi_4: -3432684574262435431
+      kahverengi_5: -6824759333707181020
+      kahverengi_6: 4097336240223851480
+      kahverengi_7: 8247090970356029391
+      kahverengi_8: 5881696374794444241
+      kahverengi_9: 7414719844065530895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

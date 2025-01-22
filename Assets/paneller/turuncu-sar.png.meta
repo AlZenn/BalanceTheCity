@@ -372,7 +372,17 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      turuncu-sar_0: 1286081321220863843
+      turuncu-sar_1: -2278151819080404370
+      turuncu-sar_2: -8193495337424642752
+      turuncu-sar_3: -2356380958249148778
+      turuncu-sar_4: -6994357194718214875
+      turuncu-sar_5: 2374877814381714235
+      turuncu-sar_6: -5059450286627846903
+      turuncu-sar_7: 5412336089986655025
+      turuncu-sar_8: -8237794544492348022
+      turuncu-sar_9: 1970845563872187219
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

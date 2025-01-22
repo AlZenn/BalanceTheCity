@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      deprem-kuresel_0: -2317274718224916105
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
