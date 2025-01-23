@@ -48,6 +48,25 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
         {
             ScriptBackrooms.denemeGuncellemeBool = true;
             ScriptBackrooms.denemeGuncellemeInt = 1;
+            
+            
+            ScriptResourceManager.happiness += ScriptBackrooms.PositiveEffectsInt[3];
+            ScriptResourceManager.cleanliness += ScriptBackrooms.PositiveEffectsInt[2];
+            ScriptResourceManager.power += ScriptBackrooms.PositiveEffectsInt[1];
+            ScriptResourceManager.money += ScriptBackrooms.PositiveEffectsInt[0];
+
+            ScriptBackrooms.PositiveEffectsInt[0] = 0;
+            ScriptBackrooms.PositiveEffectsInt[1] = 0;
+            ScriptBackrooms.PositiveEffectsInt[2] = 0;
+            ScriptBackrooms.PositiveEffectsInt[3] = 0;
+            ScriptBackrooms.NegativeEffectsInt[0] = 0;
+            ScriptBackrooms.NegativeEffectsInt[1] = 0;
+            ScriptBackrooms.NegativeEffectsInt[2] = 0;
+            ScriptBackrooms.NegativeEffectsInt[3] = 0;
+            
+            ScriptResourceManager.UpdateSliders();
+            ScriptResourceManager.SaveGame();
+            
             //ScriptResourceManager.SaveGame();
             //ScriptBackrooms.SaveTrust();
             Debug.Log("kabul edildi");
@@ -56,6 +75,25 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
         {
             ScriptBackrooms.denemeGuncellemeBool = true;
             ScriptBackrooms.denemeGuncellemeInt = 2;
+
+            ScriptResourceManager.happiness += ScriptBackrooms.NegativeEffectsInt[3];
+            ScriptResourceManager.cleanliness += ScriptBackrooms.NegativeEffectsInt[2];
+            ScriptResourceManager.power += ScriptBackrooms.NegativeEffectsInt[1];
+            ScriptResourceManager.money += ScriptBackrooms.NegativeEffectsInt[0];
+
+            ScriptBackrooms.PositiveEffectsInt[0] = 0;
+            ScriptBackrooms.PositiveEffectsInt[1] = 0;
+            ScriptBackrooms.PositiveEffectsInt[2] = 0;
+            ScriptBackrooms.PositiveEffectsInt[3] = 0;
+            ScriptBackrooms.NegativeEffectsInt[0] = 0;
+            ScriptBackrooms.NegativeEffectsInt[1] = 0;
+            ScriptBackrooms.NegativeEffectsInt[2] = 0;
+            ScriptBackrooms.NegativeEffectsInt[3] = 0;
+
+            
+            ScriptResourceManager.UpdateSliders();
+            ScriptResourceManager.SaveGame();
+            
             
             //ScriptResourceManager.SaveGame();
             //ScriptBackrooms.SaveTrust();
