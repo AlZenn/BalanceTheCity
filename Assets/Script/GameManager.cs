@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
 public class GameManager : MonoBehaviour
 {
     public PresidentManager presidentManager;
@@ -20,15 +21,16 @@ public class GameManager : MonoBehaviour
     public Sprite cleanlinessMaxSprite;
     public Sprite moneyMinSprite;
     public Sprite moneyMaxSprite;
+    public Sprite trustMinSprite;
 
     public GameObject extraButtonsPanel;
     public Button showExtraButtonsButton;
+
     private void Awake()
     {
         gameOverPanel.SetActive(false);
         extraButtonsPanel.SetActive(false);
     }
-
 
     private void Start()
     {
@@ -46,6 +48,17 @@ public class GameManager : MonoBehaviour
         {
             if (resourceManager == null || presidentManager == null)
             {
+                return;
+            }
+
+            // Check trust value and end game if it's below 0
+            if (PlayerPrefs.GetFloat("Trust") < 0)
+            {
+                gameOverPanel.SetActive(true);
+                gameOverPanelText.text = "Halkın Güveni Tükendi";
+                gameOverPanelTextdesc.text = "Halk size olan güvenini tamamen kaybetti.";
+                gameOverImage.sprite = trustMinSprite; 
+                Time.timeScale = 0;
                 return;
             }
 
@@ -129,6 +142,5 @@ public class GameManager : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
         PlayerPrefs.DeleteAll();
-        
     }
 }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,18 +8,32 @@ public class PresidentManager : MonoBehaviour
     public int maxPower;
     public int maxMoney;
 
-    // Başkan seçimi için buton referansları
-    public Button economicPresidentButton;
-    public Button environmentalPresidentButton;
-    public Button powerFocusedPresidentButton;
-
-    // Başkan seçimi için panel referansı
+    // Başkan seçimi için genel panel referansı
     public GameObject presidentSelectionPanel;
+
+    // Her başkan için ayrı panel referansları
+    public GameObject economicPresidentPanel;
+    public GameObject environmentalPresidentPanel;
+    public GameObject powerFocusedPresidentPanel;
+
+    // Başkan panellerini açan butonlar
+    public Button openEconomicPresidentPanelButton;
+    public Button openEnvironmentalPresidentPanelButton;
+    public Button openPowerFocusedPresidentPanelButton;
+
+    // Başkan seçme butonları ve kapatma butonları
+    public Button selectEconomicPresidentButton;
+    public Button closeEconomicPresidentPanelButton;
+
+    public Button selectEnvironmentalPresidentButton;
+    public Button closeEnvironmentalPresidentPanelButton;
+
+    public Button selectPowerFocusedPresidentButton;
+    public Button closePowerFocusedPresidentPanelButton;
 
     [Header("Save President")]
     private const string KeyIsActive = "ButtonsActive";
 
-    // Başkan seçim anahtarları
     private const string KeyMaxHappiness = "MaxHappiness";
     private const string KeyMaxCleanliness = "MaxCleanliness";
     private const string KeyMaxPower = "MaxPower";
@@ -28,37 +41,51 @@ public class PresidentManager : MonoBehaviour
 
     public SC_ResourceManager resourceManager;
 
-    private void Start() // okulda
+    private void Start()
     {
-        //resourceManager = GameObject.FindObjectOfType<SC_ResourceManager>();
-        // PlayerPrefs değeri kontrol edilir
         if (PlayerPrefs.GetInt(KeyIsActive, 0) == 1)
         {
-            LoadMaxValues(); // Maksimum değerleri yükle
-            presidentSelectionPanel.SetActive(false); // Panel devre dışı
-            Time.timeScale = 1; // Oyunu devam ettir
+            LoadMaxValues();
+            presidentSelectionPanel.SetActive(false);
+            Time.timeScale = 1;
         }
         else
         {
-            economicPresidentButton.onClick.AddListener(() => OnButtonClicked());
-            environmentalPresidentButton.onClick.AddListener(() => OnButtonClicked());
-            powerFocusedPresidentButton.onClick.AddListener(() => OnButtonClicked());
-
-            Time.timeScale = 0; // Oyunu durdur
+            Time.timeScale = 0; // Oyun durdurulur
         }
 
-        // Başkan seçimi butonlarına tıklama olayları ekle
-        economicPresidentButton.onClick.AddListener(SelectEconomicPresident);
-        environmentalPresidentButton.onClick.AddListener(SelectEnvironmentalPresident);
-        powerFocusedPresidentButton.onClick.AddListener(SelectPowerFocusedPresident);
+        // Panel açma butonlarının işlevlerini bağlama
+        openEconomicPresidentPanelButton.onClick.AddListener(() => ShowPanel(economicPresidentPanel));
+        openEnvironmentalPresidentPanelButton.onClick.AddListener(() => ShowPanel(environmentalPresidentPanel));
+        openPowerFocusedPresidentPanelButton.onClick.AddListener(() => ShowPanel(powerFocusedPresidentPanel));
+
+        // Panel kapatma butonlarının işlevlerini bağlama
+        closeEconomicPresidentPanelButton.onClick.AddListener(() => ClosePanel(economicPresidentPanel));
+        closeEnvironmentalPresidentPanelButton.onClick.AddListener(() => ClosePanel(environmentalPresidentPanel));
+        closePowerFocusedPresidentPanelButton.onClick.AddListener(() => ClosePanel(powerFocusedPresidentPanel));
+
+        // Başkan seçme butonlarının işlevlerini bağlama
+        selectEconomicPresidentButton.onClick.AddListener(SelectEconomicPresident);
+        selectEnvironmentalPresidentButton.onClick.AddListener(SelectEnvironmentalPresident);
+        selectPowerFocusedPresidentButton.onClick.AddListener(SelectPowerFocusedPresident);
     }
 
-    void OnButtonClicked()
+    private void ShowPanel(GameObject panel)
     {
-        PlayerPrefs.SetInt(KeyIsActive, 1); // Değer 1 olarak ayarlanır
-        PlayerPrefs.Save(); // Değişiklikler kaydedilir
-        presidentSelectionPanel.SetActive(false); // Panel devre dışı bırakılır
-        Time.timeScale = 1; // Oyunu devam ettir
+        DisableAllPanels(); // Diğer panelleri kapat
+        panel.SetActive(true); // İlgili paneli aç
+    }
+
+    private void ClosePanel(GameObject panel)
+    {
+        panel.SetActive(false);
+    }
+
+    private void DisableAllPanels()
+    {
+        economicPresidentPanel.SetActive(false);
+        environmentalPresidentPanel.SetActive(false);
+        powerFocusedPresidentPanel.SetActive(false);
     }
 
     private void SelectEconomicPresident()
@@ -68,11 +95,7 @@ public class PresidentManager : MonoBehaviour
         maxPower = 35;
         maxHappiness = 35;
 
-        PlayerPrefs.SetInt("Baskan",1);
-        SaveMaxValues(); // Maksimum değerleri kaydet
-        resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
-        UpdateResourceTexts();
-        ClosePanelAndResumeGame();
+        SavePresidentSelection();
     }
 
     private void SelectEnvironmentalPresident()
@@ -82,11 +105,7 @@ public class PresidentManager : MonoBehaviour
         maxHappiness = 35;
         maxMoney = 35;
 
-        PlayerPrefs.SetInt("Baskan", 1);
-        SaveMaxValues(); // Maksimum değerleri kaydet
-        resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
-        UpdateResourceTexts();
-        ClosePanelAndResumeGame();
+        SavePresidentSelection();
     }
 
     private void SelectPowerFocusedPresident()
@@ -96,11 +115,19 @@ public class PresidentManager : MonoBehaviour
         maxCleanliness = 35;
         maxMoney = 35;
 
+        SavePresidentSelection();
+    }
+
+    private void SavePresidentSelection()
+    {
+        PlayerPrefs.SetInt(KeyIsActive, 1);
         PlayerPrefs.SetInt("Baskan", 1);
-        SaveMaxValues(); // Maksimum değerleri kaydet
+        SaveMaxValues();
         resourceManager.UpdateSliderMaxValues(maxHappiness, maxCleanliness, maxPower, maxMoney);
         UpdateResourceTexts();
-        ClosePanelAndResumeGame();
+        DisableAllPanels();
+        presidentSelectionPanel.SetActive(false);
+        Time.timeScale = 1; // Oyunu devam ettir
     }
 
     private void SaveMaxValues()
@@ -109,7 +136,7 @@ public class PresidentManager : MonoBehaviour
         PlayerPrefs.SetInt(KeyMaxCleanliness, maxCleanliness);
         PlayerPrefs.SetInt(KeyMaxPower, maxPower);
         PlayerPrefs.SetInt(KeyMaxMoney, maxMoney);
-        PlayerPrefs.Save(); // Kaydet
+        PlayerPrefs.Save();
     }
 
     private void LoadMaxValues()
@@ -122,18 +149,7 @@ public class PresidentManager : MonoBehaviour
 
     private void UpdateResourceTexts()
     {
-        // Kaynak metinlerini güncelle
-        // Örnek:
-        // Debug.Log("Happiness: " + maxHappiness);
-        // Debug.Log("Cleanliness: " + maxCleanliness);
-        // Debug.Log("Power: " + maxPower);
-        // Debug.Log("Money: " + maxMoney);
-    }
-
-    private void ClosePanelAndResumeGame()
-    {
-        presidentSelectionPanel.SetActive(false); // Paneli gizle
-        Time.timeScale = 1; // Oyunu devam ettir
+        // Kaynak metinlerini güncelleme işlemi
     }
 
     public int GetMaxHappiness() => maxHappiness;

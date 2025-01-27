@@ -29,12 +29,13 @@ public class SC_ResourceManager : MonoBehaviour
 
     // Scripts
     private SC_Backrooms ScriptBackrooms;
+    public SC_Hava ScriptHava;
 
 
-    private int previousHappiness;
-    private int previousCleanliness;
-    private int previousPower;
-    private int previousMoney;
+    public int previousHappiness;
+    public int previousCleanliness;
+    public int previousPower;
+    public int previousMoney;
 
     // Ardışık artış sayaçları
     [SerializeField] public int consecutiveCleanlinessIncreases;
@@ -49,11 +50,12 @@ public class SC_ResourceManager : MonoBehaviour
     {
         UpdateSliders();
         LoadGame();
+        ScriptHava = GameObject.FindWithTag("GameUI").GetComponent<SC_Hava>();
         ScriptBackrooms = GameObject.FindWithTag("GameUI").GetComponent<SC_Backrooms>();
         ScriptRandomEventController = this.GetComponent<SC_RandomEventController>();
-        dayText.text = "Day: " + day;
+        dayText.text = "Gün: " + day;
 
-        
+
         ScriptBackrooms.ButtonBackrooms();
 
         previousHappiness = happiness;
@@ -65,6 +67,8 @@ public class SC_ResourceManager : MonoBehaviour
         consecutivePowerIncreases = 0;
         consecutiveHappinessIncreases = 0;
         consecutiveMoneyIncreases = 0;
+
+        
     }
 
     public void SaveGame()
@@ -111,13 +115,13 @@ public class SC_ResourceManager : MonoBehaviour
         if (PlayerPrefs.HasKey("Day"))
         {
             day = PlayerPrefs.GetInt("Day");
-            dayText.text = "Day: " + day;
+            dayText.text = "Gün: " + day;
             Debug.Log("Day Loaded!");
         }
         else
         {
             day = 1;
-            dayText.text = "Day: " + day;
+            dayText.text = "Gün: " + day;
         }
     }
 
@@ -126,20 +130,61 @@ public class SC_ResourceManager : MonoBehaviour
         PlayerPrefs.SetInt("Day", day);
     }
 
-    
+
     public void dayTextUpdate()
     {
         day++;
 
         ScriptRandomEventController.RandomEventTrigger();
-        
-        dayText.text = "Day: " + day;
+
+        dayText.text = "Gün: " + day;
         ScriptBackrooms.ButtonBackrooms();
         daySave();
         UpdateActiveEffects();
         UpdateSliders();
+
+        // Görev ilerlemesini güncelle
+        ScriptRandomEventController.UpdateTaskProgress();
+        ScriptHava.WeatherControl();
+
+        // Görevleri kontrol et ve kalan süreyi güncelle
+        CheckAndTriggerTasks();
+        ScriptRandomEventController.UpdateTaskRemainingTime();
     }
 
+    private void CheckAndTriggerTasks()
+    {
+        if (day == 6)
+        {
+            ScriptRandomEventController.ShowTaskPanel(
+                "Mutluluk arttır",
+                3,
+                "Happiness",
+                ScriptRandomEventController.TaskSprite1,
+                5
+            );
+        }
+        else if (day == 12)
+        {
+            ScriptRandomEventController.ShowTaskPanel(
+                "Temizlik arttır",
+                2,
+                "Cleanliness",
+                ScriptRandomEventController.TaskSprite2,
+                5
+            );
+        }
+        else if (day == 22)
+        {
+            ScriptRandomEventController.ShowTaskPanel(
+                "Para arttır",
+                2,
+                "Money",
+                ScriptRandomEventController.TaskSprite3,
+                5
+            );
+        }
+    }
     private void UpdateActiveEffects()
     {
         List<Effect> effectsToRemove = new List<Effect>();
@@ -238,6 +283,14 @@ public class SC_ResourceManager : MonoBehaviour
         gameEffectsTexts[1].text = cleanliness.ToString();
         gameEffectsTexts[2].text = power.ToString();
         gameEffectsTexts[3].text = money.ToString();
+
+        // Görev ilerlemesini güncelle
+        ScriptRandomEventController.UpdateTaskProgress();
+
+        previousHappiness = happiness;
+        previousCleanliness = cleanliness;
+        previousPower = power;
+        previousMoney = money;
     }
 
     private void UpdateConsecutiveIncreases(int happinessChange, int cleanlinessChange, int powerChange, int moneyChange)
@@ -284,56 +337,72 @@ public class SC_ResourceManager : MonoBehaviour
         previousMoney = money;
     }
 
-    public void IncreaseCleanliness(int amount)
-    {
-        UpdateSliders();
-        cleanliness += amount;
-        consecutiveCleanlinessIncreases++;
-        consecutivePowerIncreases = 0;
-        consecutiveHappinessIncreases = 0;
-        consecutiveMoneyIncreases = 0;
-    }
+   public void IncreaseCleanliness(int amount)
+{
+    cleanliness += amount;
+    UpdateSliders();
+    consecutiveCleanlinessIncreases++;
+    consecutivePowerIncreases = 0;
+    consecutiveHappinessIncreases = 0;
+    consecutiveMoneyIncreases = 0;
 
-    public void IncreasePower(int amount)
-    {
-        UpdateSliders();
-        power += amount;
-        consecutivePowerIncreases++;
-        consecutiveCleanlinessIncreases = 0;
-        consecutiveHappinessIncreases = 0;
-        consecutiveMoneyIncreases = 0;
-    }
+    // Görev ilerlemesini güncelle
+    ScriptRandomEventController.UpdateTaskProgress();
+}
 
-    public void IncreaseHappiness(int amount)
-    {
-        UpdateSliders();
-        happiness += amount;
-        consecutiveHappinessIncreases++;
-        consecutiveCleanlinessIncreases = 0;
-        consecutivePowerIncreases = 0;
-        consecutiveMoneyIncreases = 0;
-    }
+public void IncreasePower(int amount)
+{
+    power += amount;
+    UpdateSliders();
+    consecutivePowerIncreases++;
+    consecutiveCleanlinessIncreases = 0;
+    consecutiveHappinessIncreases = 0;
+    consecutiveMoneyIncreases = 0;
 
-    public void IncreaseMoney(int amount)
-    {
-        UpdateSliders();
-        money += amount;
-        consecutiveMoneyIncreases++;
-        consecutiveCleanlinessIncreases = 0;
-        consecutivePowerIncreases = 0;
-        consecutiveHappinessIncreases = 0;
-    }
+    // Görev ilerlemesini güncelle
+    ScriptRandomEventController.UpdateTaskProgress();
+}
 
-    public void IncreaseCleanlinessAndHappiness(int cleanlinessAmount, int happinessAmount)
-    {
-        UpdateSliders();
-        cleanliness += cleanlinessAmount;
-        happiness += happinessAmount;
-        consecutiveCleanlinessIncreases++;
-        consecutiveHappinessIncreases++;
-        consecutivePowerIncreases = 0;
-        consecutiveMoneyIncreases = 0;
-    }
+public void IncreaseHappiness(int amount)
+{
+    happiness += amount;
+    UpdateSliders();
+    consecutiveHappinessIncreases++;
+    consecutiveCleanlinessIncreases = 0;
+    consecutivePowerIncreases = 0;
+    consecutiveMoneyIncreases = 0;
+
+    // Görev ilerlemesini güncelle
+    ScriptRandomEventController.UpdateTaskProgress();
+}
+
+public void IncreaseMoney(int amount)
+{
+    money += amount;
+    UpdateSliders();
+    consecutiveMoneyIncreases++;
+    consecutiveCleanlinessIncreases = 0;
+    consecutivePowerIncreases = 0;
+    consecutiveHappinessIncreases = 0;
+
+    // Görev ilerlemesini güncelle
+    ScriptRandomEventController.UpdateTaskProgress();
+}
+
+public void IncreaseCleanlinessAndHappiness(int cleanlinessAmount, int happinessAmount)
+{
+    cleanliness += cleanlinessAmount;
+    happiness += happinessAmount;
+    UpdateSliders();
+    consecutiveCleanlinessIncreases++;
+    consecutiveHappinessIncreases++;
+    consecutivePowerIncreases = 0;
+    consecutiveMoneyIncreases = 0;
+
+    // Görev ilerlemesini güncelle
+    ScriptRandomEventController.UpdateTaskProgress();
+}
+
 
     public void ResetCleanlinessIncreases() => consecutiveCleanlinessIncreases = 0;
     public void ResetPowerIncreases() => consecutivePowerIncreases = 0;
@@ -392,7 +461,7 @@ public class SC_ResourceManager : MonoBehaviour
         new Card("Vergi Tatili", new Effect(1, 0, 0, -1, 3), new Effect(0, 0, 0, 0)),
         new Card("Enerji Tasarrufu", new Effect(0, 0, 1, 0, 3), new Effect(0, 0, 0, 0)),
         new Card("avm", new Effect(0, 0, 0, 1, 3), new Effect(0, 0, 0, 0)),
-        
+
     };
 
     public List<Card> incidentCards = new List<Card>()
@@ -404,7 +473,9 @@ public class SC_ResourceManager : MonoBehaviour
 
     public List<Card> PeopleCards = new List<Card>()
     {
-
+       new Card("Mutluluk Görevi", new Effect(0, 0, 0, 0, 3), new Effect(-10, 0, 0, 0)),
+       new Card("Temizlik Görevi", new Effect(0, 0, 0, 0, 3), new Effect(0, -10, 0, 0)),
+       new Card("Para Görevi", new Effect(0, 0, 0, 0, 3), new Effect(0, 0, 0, -10))
     };
 }
 
@@ -415,6 +486,7 @@ public class Card
     public Sprite cardPhoto;
     public Effect approveEffect;
     public Effect rejectEffect;
+
 
     public Card(string name, Effect approveEffect, Effect rejectEffect)
     {
@@ -440,7 +512,7 @@ public class Effect
         this.cleanlinessChange = cleanlinessChange;
         this.powerChange = powerChange;
         this.moneyChange = moneyChange;
-        this.duration = duration; 
+        this.duration = duration;
     }
 
     public static int ConvertToRandomValue()

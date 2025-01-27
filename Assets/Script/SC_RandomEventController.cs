@@ -1,31 +1,47 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
-using UnityEngine.UI; // UI için gerekli
 using Random = UnityEngine.Random;
 
 public class SC_RandomEventController : MonoBehaviour
 {
-    public GameObject WeatherPanel;
-    public Button closeWeather;
     public SC_ResourceManager ScriptResourceManager;
     public GameObject RandomEventCard;
-    public List<string> weatherConditions = new List<string> { "kar", "yağmur", "güneş", "sis", "bulutlu" };
-    public Sprite[] weatherSprites = new Sprite[5];
     private SpriteRenderer cardSpriteRenderer;
-    public Text WeatherInfoText;
 
-    string selectedWeather;
     private bool isActiveEvent = false;
     private int eventDelayDay = 0;
+
+    private int taskDuration;
+    private int taskEndTime;
+    public string taskType;
+    private bool taskActive;
+    private int taskGoal;
+    private int taskProgress;
+
+    public GameObject TaskPanel;
+    public Image TaskImage;
+    public Text TaskDescriptionText;
+    public Text TaskRemainingTimeText;
+    public Button CloseTaskButton;
+    public Button ReopenTaskButton; // Görev panelini tekrar açma butonu
+
+    public Sprite TaskSprite1; // 1. görev için sprite
+    public Sprite TaskSprite2; // 2. görev için sprite
+    public Sprite TaskSprite3; // 3. görev için sprite
 
     private void Awake()
     {
         RandomEventCard = GameObject.FindWithTag("RandomEventCard");
         RandomEventCard.SetActive(false);
-        WeatherPanel.SetActive(false); 
 
-        closeWeather.onClick.AddListener(CloseWeatherPanel);
+        TaskPanel.SetActive(false);
+        CloseTaskButton.onClick.AddListener(CloseTaskPanel);
+        ReopenTaskButton.onClick.AddListener(ReopenTaskPanel);
+        ReopenTaskButton.gameObject.SetActive(false); // Başlangıçta gizli
+
+        cardSpriteRenderer = RandomEventCard.GetComponent<SpriteRenderer>();
     }
 
     public void RandomEventTrigger()
@@ -34,73 +50,116 @@ public class SC_RandomEventController : MonoBehaviour
         Debug.Log("Random Event sayısı: " + randomNumber);
         if (randomNumber == 1) // %10 şans var
         {
-            int randomIndex = Random.Range(0, weatherConditions.Count); // Listeyi karıştır
-            selectedWeather = weatherConditions[randomIndex];
-            ShowWeatherPanel(selectedWeather); 
-            activeEvent(selectedWeather);
-            Debug.Log("event delay day :" + eventDelayDay);
-            Debug.Log("mevcut yeni event :" + selectedWeather);
-
             isActiveEvent = true;
             eventDelayDay = 5;
         }
-        else
+    }
+
+    public void ShowTaskPanel(string description, int duration, string type, Sprite taskSprite, int goal)
+    {
+        TaskPanel.SetActive(true);
+        taskDuration = duration;
+        taskEndTime = ScriptResourceManager.day + duration;
+        taskType = type;
+        taskGoal = goal;
+        taskProgress = 0;
+        taskActive = true;
+
+        TaskDescriptionText.text = $"{taskProgress}/{taskGoal} {description}";
+        TaskImage.sprite = taskSprite;
+        UpdateTaskRemainingTime();
+        ReopenTaskButton.gameObject.SetActive(false); // Görev paneli açıldığında tekrar açma butonunu gizle
+    }
+
+    public void CloseTaskPanel()
+    {
+        TaskPanel.SetActive(false);
+        ReopenTaskButton.gameObject.SetActive(true); // Panel kapanınca tekrar açma butonunu göster
+    }
+
+    public void ReopenTaskPanel()
+    {
+        TaskPanel.SetActive(true);
+        UpdateTaskRemainingTime();
+    }
+
+    public void UpdateTaskProgress()
+    {
+        if (taskActive)
         {
-            if (selectedWeather != null || eventDelayDay > 0)
+            int progress = 0;
+
+            switch (taskType)
             {
-                activeEvent(selectedWeather);
-                eventDelayDay--;
-                Debug.Log("event delay day :" + eventDelayDay);
-                Debug.Log("mevcut event :" + selectedWeather);
+                case "Happiness":
+                    progress = ScriptResourceManager.happiness - ScriptResourceManager.previousHappiness;
+                    ScriptResourceManager.previousHappiness = ScriptResourceManager.happiness;
+                    break;
+                case "Cleanliness":
+                    progress = ScriptResourceManager.cleanliness - ScriptResourceManager.previousCleanliness;
+                    ScriptResourceManager.previousCleanliness = ScriptResourceManager.cleanliness;
+                    break;
+                case "Power":
+                    progress = ScriptResourceManager.power - ScriptResourceManager.previousPower;
+                    ScriptResourceManager.previousPower = ScriptResourceManager.power;
+                    break;
+                case "Money":
+                    progress = ScriptResourceManager.money - ScriptResourceManager.previousMoney;
+                    ScriptResourceManager.previousMoney = ScriptResourceManager.money;
+                    break;
+            }
+
+            if (progress > 0)
+            {
+                taskProgress += progress;
+                Debug.Log($"Task Progress Updated: {taskProgress}/{taskGoal} ({taskType})");
+                TaskDescriptionText.text = $"{taskProgress}/{taskGoal} {taskType}";
+                if (taskProgress >= taskGoal)
+                {
+                    taskActive = false;
+                    ReopenTaskButton.gameObject.SetActive(false);
+                    TaskPanel.SetActive(false);
+                    Debug.Log("Task Completed");
+                }
             }
         }
     }
 
-    public void activeEvent(string selectedEvent)
+    public void UpdateTaskRemainingTime()
     {
-        if (isActiveEvent == true && selectedEvent != null)
+        if (taskActive)
         {
-            // 5 gün sonrası için durumu uygula
-            if (selectedEvent == weatherConditions[0]) // kar ise
+            int remainingTime = taskEndTime - ScriptResourceManager.day;
+            TaskRemainingTimeText.text = "" + remainingTime + " gün";
+
+            if (remainingTime <= 0)
             {
-                cardSpriteRenderer.sprite = weatherSprites[0];
-                applyActiveEventHapiness();
-            }
-            else if (selectedEvent == weatherConditions[1]) // yağmur ise
-            {
-                cardSpriteRenderer.sprite = weatherSprites[1];
-                applyActiveEventClean();
-            }
-            else if (selectedEvent == weatherConditions[2]) // güneş ise
-            {
-                cardSpriteRenderer.sprite = weatherSprites[2];
-                applyActiveEventMoney();
-            }
-            else if (selectedEvent == weatherConditions[3]) // sis ise
-            {
-                cardSpriteRenderer.sprite = weatherSprites[3];
-                applyActiveEventPower();
-            }
-            else if (selectedEvent == weatherConditions[4]) // bulutlu ise
-            {
-                cardSpriteRenderer.sprite = weatherSprites[4];
-                applyActiveEventMoney();
-                // Bulutlu hava durumu için başka bir işlem eklenebilir
+                ApplyTaskPenalty();
+                taskActive = false;
+                ReopenTaskButton.gameObject.SetActive(false); // Görev süresi dolunca butonu gizle
             }
         }
     }
 
-    
-    public void ShowWeatherPanel(string weatherCondition)
+    private void ApplyTaskPenalty()
     {
-        WeatherPanel.SetActive(true);
-        WeatherInfoText.text = "Bugün hava " + weatherCondition + ".";
-    }
+        switch (taskType)
+        {
+            case "Happiness":
+                ScriptResourceManager.happiness -= 10;
+                break;
+            case "Cleanliness":
+                ScriptResourceManager.cleanliness -= 5;
+                ScriptResourceManager.money -= 5;
+                break;
+            case "Money":
+                ScriptResourceManager.money -= 5;
+                ScriptResourceManager.happiness -= 5;
+                ScriptResourceManager.power -= 5;
+                break;
+        }
 
-    
-    public void CloseWeatherPanel()
-    {
-        WeatherPanel.SetActive(false);
+        ScriptResourceManager.UpdateSliders();
     }
 
     // Mutluluk etkileme fonksiyonu

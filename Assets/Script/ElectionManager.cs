@@ -34,11 +34,11 @@ public class ElectionManager : MonoBehaviour
         // G�n sistemini ba�lat
         if (PlayerPrefs.HasKey("Day"))
         {
-            dayText.text = "Day: " + PlayerPrefs.GetInt("Day");
+            dayText.text = "Gün: " + PlayerPrefs.GetInt("Day");
         }
         else
         {
-            dayText.text = "Day: " + resourceManager.day;
+            dayText.text = "Gün: " + resourceManager.day;
         }
         
 
@@ -135,6 +135,11 @@ public class ElectionManager : MonoBehaviour
                 totalVotes += 5; // G�� odakl� ba�kan varsa ekstra +%5 oy
             }
         }
+
+        if (presidentManager.GetMaxPower() == 40 && PlayerPrefs.HasKey("�evreciler"))
+        {
+            totalVotes += 3; // Çevreci başkan varsa ve Aktivist kartı alındıysa ekstra +%3 oy
+        }
     }
 
     public void AddVotes(string buttonKey)
@@ -147,6 +152,7 @@ public class ElectionManager : MonoBehaviour
                     totalVotes += 4; // Boost: E�er "Left Wing" varsa ekstra +%4 oy
                 if (PlayerPrefs.HasKey("End�striyel"))
                     totalVotes -= 3; // Kontra: "End�striyel" varsa etkisi %25 azal�r
+
                 break;
             case "Buisness":
                 totalVotes += 14;
@@ -190,6 +196,11 @@ public class ElectionManager : MonoBehaviour
                 totalVotes += 10;
                 if (PlayerPrefs.HasKey("LeftWing"))
                     totalVotes += 3; // Boost: E�er "Left Wing" varsa ekstra +%3 oy
+                else if (presidentManager.GetMaxCleanliness() == 40) // Assuming maxCleanliness 40 means Environmental President
+                {
+                    totalVotes += 3; // Boost: Çevreci başkan varsa ekstra +%3 oy
+                }
+
                 break;
             case "Medya":
                 totalVotes += 15;
@@ -200,10 +211,10 @@ public class ElectionManager : MonoBehaviour
 
         UpdateVoteText();
     }
-
     private void UpdateVoteText()
     {
-        voteText.text = $" Votes: {totalVotes}%";
+        voteText.text = $" Oy Oranı: {totalVotes}%";
+        PlayerPrefs.SetFloat("Votes",totalVotes);
         CheckWinOrLose();
     }
 
@@ -237,7 +248,7 @@ public class ElectionManager : MonoBehaviour
     public void dayTextUpdate()
     {
         resourceManager.day++;
-        dayText.text = "Day: " + resourceManager.day;
+        dayText.text = "Gün: " + resourceManager.day;
 
         daySave();
         CheckWinOrLose();
