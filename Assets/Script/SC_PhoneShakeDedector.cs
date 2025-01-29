@@ -7,6 +7,7 @@ public class SC_PhoneShakeDedector : MonoBehaviour
     private Vector3 lastAcceleration;
     private Vector3 currentAcceleration;
     private Vector3 accelerationDelta;
+    public GameObject card;
     void Start()
     {
         // İlk ivme değerini al
@@ -15,20 +16,24 @@ public class SC_PhoneShakeDedector : MonoBehaviour
     }
     void Update()
     {
-        // Şu anki ivme değerini güncelle
-        currentAcceleration = Input.acceleration;
+        if (!card.activeSelf)
+        {       
+            // Şu anki ivme değerini güncelle
+            currentAcceleration = Input.acceleration;
 
-        // İvme değişimini hesapla
-        accelerationDelta = currentAcceleration - lastAcceleration;
+            // İvme değişimini hesapla
+            accelerationDelta = currentAcceleration - lastAcceleration;
 
-        // Eğer ivme değişimi eşik değerinden büyükse sallama algılandı
-        if (accelerationDelta.sqrMagnitude >= shakeThreshold * shakeThreshold)
-        {
-            ScriptDice.RollDice();
+            // Eğer ivme değişimi eşik değerinden büyükse sallama algılandı
+            if (accelerationDelta.sqrMagnitude >= shakeThreshold * shakeThreshold)
+            {
+                ScriptDice.RollDice();
+            }
+
+            // Son ivme değerini güncelle
+            lastAcceleration = currentAcceleration;
         }
 
-        // Son ivme değerini güncelle
-        lastAcceleration = currentAcceleration;
     }
 
     

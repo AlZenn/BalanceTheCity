@@ -4,10 +4,12 @@ public class DevCode : MonoBehaviour
 {
     private bool devActive;
     private SC_ResourceManager ScriptResourceManager;
+    private ElectionManager ScriptElectionManager;
     void Start()
     {
         devActive = false;
         ScriptResourceManager = GameObject.FindWithTag("GameUI").GetComponent<SC_ResourceManager>();
+        ScriptElectionManager = GameObject.FindWithTag("GameUI").GetComponent<ElectionManager>();
     }
 
     // Update is called once per frame
@@ -74,6 +76,12 @@ public class DevCode : MonoBehaviour
         {
             ScriptResourceManager.dayTextUpdate();
 
+        }
+
+        if (Input.GetKeyDown(KeyCode.E) && devActive)
+        {
+            ScriptElectionManager.totalVotes = 60f;
+            ScriptElectionManager.UpdateVoteText();
         }
         
     }

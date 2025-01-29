@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -32,7 +33,7 @@ public class ElectionManager : MonoBehaviour
     //public int day;
     [SerializeField] private Text dayText;
 
-    private float totalVotes = 0;
+    public float totalVotes = 0;
 
     private void Start()
     {
@@ -43,18 +44,7 @@ public class ElectionManager : MonoBehaviour
         newLosePanel.SetActive(false);
         newWinButton.onClick.AddListener(GoToNewWinPanel);
         newLoseButton.onClick.AddListener(GoToNewLosePanel);
-
-        // G�n sistemini ba�lat
-        if (PlayerPrefs.HasKey("Day"))
-        {
-            dayText.text = "Gün: " + PlayerPrefs.GetInt("Day");
-        }
-        else
-        {
-            dayText.text = "Gün: " + resourceManager.day;
-        }
-
-
+        
         // Butonlar�n sat�n al�nma durumlar�n� kontrol et ve oy de�erlerini ekle
         CheckPurchasedButtons();
         ApplyPresidentEffects();
@@ -236,7 +226,7 @@ public class ElectionManager : MonoBehaviour
         UpdateVoteText();
     }
 
-    private void UpdateVoteText()
+    public void UpdateVoteText()
     {
         voteText.text = $" Oy Oranı: {totalVotes}%";
         extraVoteText1.text = $"  {totalVotes}%";
@@ -264,6 +254,11 @@ public class ElectionManager : MonoBehaviour
             winPanel.SetActive(false);
             losePanel.SetActive(false);
         }
+    }
+
+    private void Update()
+    {
+        CheckWinOrLose();
     }
 
     public void daySave()
