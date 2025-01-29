@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0278f2722b537dc4c909130fb9e056d8
+guid: d1ecb89aa1cccb844aef441bffed13d2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2957404852419100943
-    second: d_0
+      213: 9075634440740305088
+    second: kar-kuresel_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: d_0
+      name: kar-kuresel_0
       rect:
         serializedVersion: 2
-        x: 127
-        y: 212
-        width: 1347
-        height: 1793
+        x: 0
+        y: 0
+        width: 960
+        height: 1280
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f0105755b00da0920800000000000000
-      internalID: 2957404852419100943
+      spriteID: 0c870a7607123fd70800000000000000
+      internalID: 9075634440740305088
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      d_0: 2957404852419100943
+      kar-kuresel_0: 9075634440740305088
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
