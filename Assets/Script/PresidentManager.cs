@@ -90,30 +90,30 @@ public class PresidentManager : MonoBehaviour
 
     private void SelectEconomicPresident()
     {
-        maxMoney = 40;
-        maxCleanliness = 30;
-        maxPower = 35;
-        maxHappiness = 35;
+        maxMoney = 50;
+        maxCleanliness = 40;
+        maxPower = 45;
+        maxHappiness = 45;
 
         SavePresidentSelection();
     }
 
     private void SelectEnvironmentalPresident()
     {
-        maxCleanliness = 40;
-        maxPower = 30;
-        maxHappiness = 35;
-        maxMoney = 35;
+        maxCleanliness = 50;
+        maxPower = 40;
+        maxHappiness = 45;
+        maxMoney = 45;
 
         SavePresidentSelection();
     }
 
     private void SelectPowerFocusedPresident()
     {
-        maxPower = 40;
-        maxHappiness = 30;
-        maxCleanliness = 35;
-        maxMoney = 35;
+        maxPower = 50;
+        maxHappiness = 40;
+        maxCleanliness = 45;
+        maxMoney = 45;
 
         SavePresidentSelection();
     }

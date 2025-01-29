@@ -70,42 +70,42 @@ public class SC_CardSwipe : MonoBehaviour
         float distanceX = transform.position.x - cardTransform.position.x;
         float distanceY = transform.position.y - cardTransform.position.y;
 
-        
-        if (ScriptDice.ChaosCard && distanceX >= targetDistance || distanceX <= -targetDistance)
+        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == false)
         {
-            ScriptResourceManager.happiness = Random.Range(5, 35);
-            ScriptResourceManager.cleanliness = Random.Range(5, 35);
-            ScriptResourceManager.money = Random.Range(5, 35);
-            ScriptResourceManager.power = Random.Range(5, 35);
+            if (distanceX >= targetDistance) // Sağda bırakıldıysa
+            {
+                ScriptDice.isSwitched = true;
+                ScriptDice.denemeBool = true;
+                ScriptDice.denemeInt = 1;
+                Debug.Log("sağa kaydırıldı");
+            }
+            else if (distanceX <= -targetDistance) // Solda bırakıldıysa
+            {
+                ScriptDice.isSwitched = true;
+                ScriptDice.denemeBool = true;
+                ScriptDice.denemeInt = 2;
+                Debug.Log("sola kaydırıldı");
+            }
+            
+        }else if (ScriptDice.ChaosCard && distanceX >= targetDistance || distanceX <= -targetDistance)
+        {
+            ScriptResourceManager.happiness = Random.Range(5, 30);
+            ScriptResourceManager.cleanliness = Random.Range(5, 30);
+            ScriptResourceManager.money = Random.Range(5, 30);
+            ScriptResourceManager.power = Random.Range(5, 30);
                 
             ScriptResourceManager.UpdateSliders();
             ScriptDice.Card_Object.SetActive(false);
             ScriptResourceManager.dayTextUpdate();
             ScriptDice.Button_Dice.interactable = true;
             ScriptDice.ChaosCard = false;
+            ScriptDice.isSwitched = false;
         }
+
         
-        if (ScriptDice.isSwitched == false)
-        {
-            if (!ScriptDice.ChaosCard)
-            {
-                if (distanceX >= targetDistance) // Sağda bırakıldıysa
-                {
-                    ScriptDice.isSwitched = true;
-                    ScriptDice.denemeBool = true;
-                    ScriptDice.denemeInt = 1;
-                    Debug.Log("sağa kaydırıldı");
-                }
-                else if (distanceX <= -targetDistance) // Solda bırakıldıysa
-                {
-                    ScriptDice.isSwitched = true;
-                    ScriptDice.denemeBool = true;
-                    ScriptDice.denemeInt = 2;
-                    Debug.Log("sola kaydırıldı");
-                }
-            }
-        }
-        if (ScriptDice.isSwitched == true)
+        
+        
+        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == true)
         {
             if (distanceY >= (targetDistance - 100))
             {

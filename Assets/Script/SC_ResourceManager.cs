@@ -13,10 +13,10 @@ public class SC_ResourceManager : MonoBehaviour
     public Slider powerSlider;
     public Slider moneySlider;
     // Temel Unsurlar
-    public int happiness = 20;
-    public int cleanliness = 20;
-    public int power = 20;
-    public int money = 20;
+    public int happiness = 25;
+    public int cleanliness = 25;
+    public int power = 25;
+    public int money = 25;
 
     // Kaynak Text Objeleri
     public Text[] cardEffectsPositiveTexts;
@@ -52,6 +52,7 @@ public class SC_ResourceManager : MonoBehaviour
     {
         UpdateSliders();
         LoadGame();
+        
         ScriptHava = GameObject.FindWithTag("GameUI").GetComponent<SC_Hava>();
         ScriptBackrooms = GameObject.FindWithTag("GameUI").GetComponent<SC_Backrooms>();
         ScriptRandomEventController = this.GetComponent<SC_RandomEventController>();
@@ -102,10 +103,10 @@ public class SC_ResourceManager : MonoBehaviour
         }
         else
         {
-            happiness = 20;
-            cleanliness = 20;
-            power = 20;
-            money = 20;
+            happiness = 25;
+            cleanliness = 25;
+            power = 25;
+            money = 25;
 
             gameEffectsTexts[0].text = happiness.ToString();
             gameEffectsTexts[1].text = cleanliness.ToString();
@@ -251,7 +252,7 @@ public class SC_ResourceManager : MonoBehaviour
     }
     public void UpdateSliders()
     {
-        Debug.Log("Updating sliders: " + happiness + ", " + cleanliness + ", " + power + ", " + money);
+        Debug.Log("Updating sliders: " + money + ", " + power + ", " + cleanliness + ", " + happiness);
 
         // Slider'ların değerlerini normalize ederek güncelle
         happinessSlider.value = (float)happiness;

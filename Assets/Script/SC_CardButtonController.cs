@@ -61,8 +61,8 @@ public class SC_CardButtonController : MonoBehaviour
         if (ScriptDice.ChaosCard)
         {
             leftText.text = "K";
-            Text_electric.text = "O";
-            Text_clean.text = "A";
+            Text_electric.text = "A";
+            Text_clean.text = "O";
             rightText.text = "S";
             ShowStatsPanel();  
         }
@@ -105,8 +105,8 @@ public class SC_CardButtonController : MonoBehaviour
         if (ScriptDice.ChaosCard)
         {
             leftText.text = "K";
-            Text_electric.text = "O";
-            Text_clean.text = "A";
+            Text_electric.text = "A";
+            Text_clean.text = "O";
             rightText.text = "S";
             ShowStatsPanel();  
         }
@@ -150,8 +150,8 @@ public class SC_CardButtonController : MonoBehaviour
         if (ScriptDice.ChaosCard)
         {
             leftText.text = "K";
-            Text_electric.text = "O";
-            Text_clean.text = "A";
+            Text_electric.text = "A";
+            Text_clean.text = "O";
             rightText.text = "S";
             ShowStatsPanel();  
         }
@@ -194,8 +194,8 @@ public class SC_CardButtonController : MonoBehaviour
         if (ScriptDice.ChaosCard)
         {
             leftText.text = "K";
-            Text_electric.text = "O";
-            Text_clean.text = "A";
+            Text_electric.text = "A";
+            Text_clean.text = "O";
             rightText.text = "S";
             ShowStatsPanel();  
         }

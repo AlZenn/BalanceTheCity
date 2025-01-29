@@ -1,28 +1,30 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AchievementsMenu : MonoBehaviour
 {
-    [SerializeField] private Image[] achievementImages; // Baþarýmlar için Image objeleri (6 adet)
-    private string[] achievementKeys = { "Happiness", "Cleanliness", "Power", "Money", "DayWin", "Trust" };
+    [SerializeField] private Image[] achievementImages; // Baï¿½arï¿½mlar iï¿½in Image objeleri (6 adet)
+    private string[] achievementKeys = { "Happiness1", "Cleanliness1", "Power1", "Money1", "DayWin1", "Trust1" };
 
     private void Start()
     {
-        UpdateAchievements();
+        
     }
 
-    private void UpdateAchievements()
+    private void Update()
     {
         for (int i = 0; i < achievementKeys.Length; i++)
         {
-            if (PlayerPrefs.GetInt(achievementKeys[i], 0) == 1) // Baþarým yapýldýysa
+            if (PlayerPrefs.GetInt(achievementKeys[i], 0) == 1) // Baï¿½arï¿½m yapï¿½ldï¿½ysa
             {
-                achievementImages[i].color = Color.white; // Beyaz renkte göster
+                achievementImages[i].color = Color.white; // Beyaz renkte gï¿½ster
             }
             else
             {
-                achievementImages[i].color = new Color(0.2f, 0.2f, 0.2f); // Siyah renkte göster
+                achievementImages[i].color = new Color(0.2f, 0.2f, 0.2f); // Siyah renkte gï¿½ster
             }
         }
     }
+    
 }

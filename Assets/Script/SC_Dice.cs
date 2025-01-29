@@ -291,7 +291,7 @@ public class SC_Dice : MonoBehaviour
         ScriptResourceManager.cardEffectsNegativeTexts[2].text = $"Güç: {rejectEffect.powerChange}";
         ScriptResourceManager.cardEffectsNegativeTexts[3].text = $"Para: {rejectEffect.moneyChange}";
 
-        Debug.Log($"Mutluluk: {approveEffect.happinessChange} Temizlik: {approveEffect.cleanlinessChange}");
+        //Debug.Log($"Mutluluk: {approveEffect.happinessChange} Temizlik: {approveEffect.cleanlinessChange}");
 
         // stringden integer'a değer döndürür.
         // mathf.round = float
