@@ -13,8 +13,8 @@ public class SC_CardButtonController : MonoBehaviour
     
     
     
-    public Text rightText;
-    public Text leftText;
+    public Text Text_money;
+    public Text Text_happiness;
     public Text Text_electric;
     public Text Text_clean;
     
@@ -32,8 +32,8 @@ public class SC_CardButtonController : MonoBehaviour
         StatsPanel.SetActive(false);
         DownStatsPanel.SetActive(false);
         
-        rightText.text = "";
-        leftText.text = "";
+        Text_money.text = "";
+        Text_happiness.text = "";
         Text_electric.text = "";
         Text_clean.text = "";
 
@@ -45,8 +45,8 @@ public class SC_CardButtonController : MonoBehaviour
 
     private void defaultText()
     {
-        rightText.text = "";
-        leftText.text = "";
+        Text_money.text = "";
+        Text_happiness.text = "";
         Text_electric.text = "";
         Text_clean.text = "";
 
@@ -60,24 +60,32 @@ public class SC_CardButtonController : MonoBehaviour
     {
         if (ScriptDice.ChaosCard)
         {
-            leftText.text = "K";
+            Text_money.text = "K";
             Text_electric.text = "A";
             Text_clean.text = "O";
-            rightText.text = "S";
+            Text_happiness.text = "S";
             ShowStatsPanel();  
         }
-        if (!ScriptDice.isSwitched && !ScriptDice.ChaosCard)
+        if (ScriptDice.BuildingCard)
         {
-            rightText.text = ScriptDice.Positifdegerler[3].ToString();
-            leftText.text = ScriptDice.Negatifdegerler[3].ToString();
+            Text_money.text = "Y";
+            Text_electric.text = "A";
+            Text_clean.text = "P";
+            Text_happiness.text = "I";
+            ShowStatsPanel();  
+        }
+        if (!ScriptDice.isSwitched && !ScriptDice.ChaosCard && !ScriptDice.BuildingCard)
+        {
+            Text_happiness.text = ScriptDice.Positifdegerler[3].ToString();
+            Text_money.text = ScriptDice.Negatifdegerler[3].ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1 && !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1 && !ScriptDice.ChaosCard && !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Positifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Positifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
             
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Positifdegerler[3]).ToString();
@@ -86,12 +94,12 @@ public class SC_CardButtonController : MonoBehaviour
             DownTextHappiness.text = ( 0.5 * ScriptDice.Positifdegerler[0]).ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard && !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Negatifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Negatifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Negatifdegerler[3]).ToString();
             DownText_electric.text = ( 0.5 * ScriptDice.Negatifdegerler[2]).ToString();
@@ -104,24 +112,32 @@ public class SC_CardButtonController : MonoBehaviour
     {
         if (ScriptDice.ChaosCard)
         {
-            leftText.text = "K";
+            Text_money.text = "K";
             Text_electric.text = "A";
             Text_clean.text = "O";
-            rightText.text = "S";
+            Text_happiness.text = "S";
             ShowStatsPanel();  
         }
-        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard)
+        if (ScriptDice.BuildingCard)
         {
-            rightText.text = ScriptDice.Positifdegerler[0].ToString();
-            leftText.text = ScriptDice.Negatifdegerler[0].ToString();
+            Text_money.text = "Y";
+            Text_electric.text = "A";
+            Text_clean.text = "P";
+            Text_happiness.text = "I";
+            ShowStatsPanel();  
+        }
+        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
+        {
+            Text_happiness.text = ScriptDice.Positifdegerler[0].ToString();
+            Text_money.text = ScriptDice.Negatifdegerler[0].ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Positifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Positifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
             
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Positifdegerler[3]).ToString();
@@ -130,12 +146,12 @@ public class SC_CardButtonController : MonoBehaviour
             DownTextHappiness.text = ( 0.5 * ScriptDice.Positifdegerler[0]).ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Negatifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Negatifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Negatifdegerler[3]).ToString();
             DownText_electric.text = ( 0.5 * ScriptDice.Negatifdegerler[2]).ToString();
@@ -149,24 +165,32 @@ public class SC_CardButtonController : MonoBehaviour
     {
         if (ScriptDice.ChaosCard)
         {
-            leftText.text = "K";
+            Text_money.text = "K";
             Text_electric.text = "A";
             Text_clean.text = "O";
-            rightText.text = "S";
+            Text_happiness.text = "S";
             ShowStatsPanel();  
         }
-        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard)
+        if (ScriptDice.BuildingCard)
         {
-            rightText.text = ScriptDice.Positifdegerler[2].ToString();
-            leftText.text = ScriptDice.Negatifdegerler[2].ToString();
+            Text_money.text = "Y";
+            Text_electric.text = "A";
+            Text_clean.text = "P";
+            Text_happiness.text = "I";
+            ShowStatsPanel();  
+        }
+        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
+        {
+            Text_happiness.text = ScriptDice.Positifdegerler[2].ToString();
+            Text_money.text = ScriptDice.Negatifdegerler[2].ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Positifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Positifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
             
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Positifdegerler[3]).ToString();
@@ -175,12 +199,12 @@ public class SC_CardButtonController : MonoBehaviour
             DownTextHappiness.text = ( 0.5 * ScriptDice.Positifdegerler[0]).ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Negatifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Negatifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Negatifdegerler[3]).ToString();
             DownText_electric.text = ( 0.5 * ScriptDice.Negatifdegerler[2]).ToString();
@@ -193,25 +217,35 @@ public class SC_CardButtonController : MonoBehaviour
     {
         if (ScriptDice.ChaosCard)
         {
-            leftText.text = "K";
+            Text_money.text = "K";
             Text_electric.text = "A";
             Text_clean.text = "O";
-            rightText.text = "S";
+            Text_happiness.text = "S";
             ShowStatsPanel();  
         }
-        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard)
+        if (ScriptDice.BuildingCard)
         {
-            rightText.text = ScriptDice.Positifdegerler[1].ToString();
-            leftText.text = ScriptDice.Negatifdegerler[1].ToString();
+            Text_money.text = "Y";
+            Text_electric.text = "A";
+            Text_clean.text = "P";
+            Text_happiness.text = "I";
+
+
+
             ShowStatsPanel();  
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard)
+        if (!ScriptDice.isSwitched&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
+            Text_happiness.text = ScriptDice.Positifdegerler[1].ToString();
+            Text_money.text = ScriptDice.Negatifdegerler[1].ToString();
+            ShowStatsPanel();  
+        }
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 1&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
+        { 
+            Text_money.text = ( 2 * ScriptDice.Positifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Positifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Positifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
-            
+            Text_happiness.text = ( 2 * ScriptDice.Positifdegerler[0]).ToString();
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Positifdegerler[3]).ToString();
             DownText_electric.text = ( 0.5 * ScriptDice.Positifdegerler[2]).ToString();
@@ -219,12 +253,12 @@ public class SC_CardButtonController : MonoBehaviour
             DownTextHappiness.text = ( 0.5 * ScriptDice.Positifdegerler[0]).ToString();
             ShowStatsPanel();
         }
-        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard)
+        else if (ScriptDice.isSwitched && ScriptDice.denemeInt == 2&& !ScriptDice.ChaosCard&& !ScriptDice.BuildingCard)
         {
-            leftText.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
+            Text_money.text = ( 2 * ScriptDice.Negatifdegerler[3]).ToString();
             Text_electric.text = ( 2 * ScriptDice.Negatifdegerler[2]).ToString();
             Text_clean.text = ( 2 * ScriptDice.Negatifdegerler[1]).ToString() ;
-            rightText.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
+            Text_happiness.text = ( 2 * ScriptDice.Negatifdegerler[0]).ToString();
             
             DownTextMoney.text = ( 0.5 * ScriptDice.Negatifdegerler[3]).ToString();
             DownText_electric.text = ( 0.5 * ScriptDice.Negatifdegerler[2]).ToString();
@@ -238,7 +272,7 @@ public class SC_CardButtonController : MonoBehaviour
     {
         StatsPanel.SetActive(true);
         if (ScriptDice.isSwitched) DownStatsPanel.SetActive(true);
-        timer = 1f;
+        timer = 4f;
     }
 
     private void Update()

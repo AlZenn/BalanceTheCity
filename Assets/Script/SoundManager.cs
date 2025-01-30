@@ -3,39 +3,45 @@ using UnityEngine.UI;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource backgroundMusic; // Arka plan müziği için AudioSource
+    public AudioSource backgroundMusic; // Arka plan mÃ¼ziÄŸi iÃ§in AudioSource
     public Button soundToggleButton; // Ses kontrol butonu
-    public Sprite soundOnSprite; // Ses açıkken kullanılacak sprite
-    public Sprite soundOffSprite; // Ses kapalıyken kullanılacak sprite
+    public Sprite soundOnSprite; // Ses aÃ§Ä±kkken kullanÄ±lacak sprite
+    public Sprite soundOffSprite; // Ses kapalÄ±yken kullanÄ±lacak sprite
 
-    private bool isSoundOn = true; // Sesin açık olup olmadığını kontrol eden değişken
+    private bool isSoundOn; // Sesin aÃ§Ä±k olup olmadÄ±ÄŸÄ±nÄ± kontrol eden deÄŸiÅŸken
 
     private void Start()
     {
+        // Ã–nceden kaydedilmiÅŸ ses durumunu yÃ¼kle (VarsayÄ±lan olarak aÃ§Ä±k)
+        isSoundOn = PlayerPrefs.GetInt("SoundState", 1) == 1;
+
+        // AudioSource'un mute deÄŸerini ayarla
+        backgroundMusic.mute = !isSoundOn;
+
         // Ses kontrol butonuna dinleyici ekle
         soundToggleButton.onClick.AddListener(ToggleSound);
-        // Başlangıçta doğru sprite'ı ayarla
+
+        // BaÅŸlangÄ±Ã§ta doÄŸru sprite'Ä± ayarla
         UpdateSoundButtonSprite();
     }
 
-    // Sesi aç/kapa fonksiyonu
+    // Sesi aÃ§/kapa fonksiyonu
     private void ToggleSound()
     {
         isSoundOn = !isSoundOn;
         backgroundMusic.mute = !isSoundOn;
+
+        // SeÃ§imi PlayerPrefs'e kaydet
+        PlayerPrefs.SetInt("SoundState", isSoundOn ? 1 : 0);
+        PlayerPrefs.Save();
+
+        // Ses butonunun sprite'Ä±nÄ± gÃ¼ncelle
         UpdateSoundButtonSprite();
     }
 
-    // Ses butonunun sprite'ını güncelleme fonksiyonu
+    // Ses butonunun sprite'Ä±nÄ± gÃ¼ncelleme fonksiyonu
     private void UpdateSoundButtonSprite()
     {
-        if (isSoundOn)
-        {
-            soundToggleButton.GetComponent<Image>().sprite = soundOnSprite;
-        }
-        else
-        {
-            soundToggleButton.GetComponent<Image>().sprite = soundOffSprite;
-        }
+        soundToggleButton.GetComponent<Image>().sprite = isSoundOn ? soundOnSprite : soundOffSprite;
     }
 }

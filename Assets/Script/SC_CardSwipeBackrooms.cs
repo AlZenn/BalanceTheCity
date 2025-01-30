@@ -60,6 +60,7 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
             ScriptBackrooms.PositiveEffectsInt[1] = 0;
             ScriptBackrooms.PositiveEffectsInt[2] = 0;
             ScriptBackrooms.PositiveEffectsInt[3] = 0;
+            
             ScriptBackrooms.NegativeEffectsInt[0] = 0;
             ScriptBackrooms.NegativeEffectsInt[1] = 0;
             ScriptBackrooms.NegativeEffectsInt[2] = 0;
@@ -87,6 +88,7 @@ public class SC_CardSwipeBackrooms : MonoBehaviour
             ScriptBackrooms.PositiveEffectsInt[1] = 0;
             ScriptBackrooms.PositiveEffectsInt[2] = 0;
             ScriptBackrooms.PositiveEffectsInt[3] = 0;
+            
             ScriptBackrooms.NegativeEffectsInt[0] = 0;
             ScriptBackrooms.NegativeEffectsInt[1] = 0;
             ScriptBackrooms.NegativeEffectsInt[2] = 0;

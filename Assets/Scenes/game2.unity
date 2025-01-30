@@ -1869,7 +1869,7 @@ GameObject:
   - component: {fileID: 179606819}
   - component: {fileID: 179606818}
   m_Layer: 5
-  m_Name: 4_Right
+  m_Name: Up_happiness
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3996,7 +3996,7 @@ GameObject:
   - component: {fileID: 374587328}
   - component: {fileID: 374587327}
   m_Layer: 5
-  m_Name: happ
+  m_Name: para
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6044,7 +6044,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 134
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -6502,7 +6502,7 @@ GameObject:
   - component: {fileID: 533778487}
   - component: {fileID: 533778486}
   m_Layer: 5
-  m_Name: elec
+  m_Name: power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6554,7 +6554,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 134
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -7833,7 +7833,7 @@ GameObject:
   - component: {fileID: 639702973}
   - component: {fileID: 639702972}
   m_Layer: 5
-  m_Name: 1_Left
+  m_Name: Up_money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9279,7 +9279,7 @@ GameObject:
   - component: {fileID: 742402858}
   - component: {fileID: 742402857}
   m_Layer: 5
-  m_Name: elec
+  m_Name: temizlik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13172,7 +13172,7 @@ GameObject:
   - component: {fileID: 1026890347}
   - component: {fileID: 1026890346}
   m_Layer: 5
-  m_Name: temiz
+  m_Name: "g\xFC\xE7"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13252,7 +13252,7 @@ GameObject:
   - component: {fileID: 1027474206}
   - component: {fileID: 1027474205}
   m_Layer: 5
-  m_Name: _ButtonTemizlik
+  m_Name: "_ButtonG\xFCc"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13323,7 +13323,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1715051125}
         m_TargetAssemblyTypeName: SC_CardButtonController, Assembly-CSharp
-        m_MethodName: buttonTemizlik
+        m_MethodName: buttonGuc
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13383,7 +13383,7 @@ GameObject:
   - component: {fileID: 1036978126}
   - component: {fileID: 1036978125}
   m_Layer: 5
-  m_Name: 2
+  m_Name: Up_power
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13925,7 +13925,7 @@ GameObject:
   - component: {fileID: 1054663395}
   - component: {fileID: 1054663394}
   m_Layer: 5
-  m_Name: "_ButtonG\xFC\xE7"
+  m_Name: _Buttontemizlik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13996,7 +13996,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1715051125}
         m_TargetAssemblyTypeName: SC_CardButtonController, Assembly-CSharp
-        m_MethodName: buttonGuc
+        m_MethodName: buttonTemizlik
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15551,7 +15551,7 @@ GameObject:
   - component: {fileID: 1239888270}
   - component: {fileID: 1239888269}
   m_Layer: 5
-  m_Name: 3
+  m_Name: Up_clean
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17151,7 +17151,7 @@ GameObject:
   - component: {fileID: 1361617363}
   - component: {fileID: 1361617362}
   m_Layer: 5
-  m_Name: elec
+  m_Name: temizlik
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18733,7 +18733,7 @@ GameObject:
   - component: {fileID: 1481930270}
   - component: {fileID: 1481930269}
   m_Layer: 5
-  m_Name: happ
+  m_Name: para
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22043,7 +22043,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1080, y: 1920}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.3
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -22141,6 +22141,7 @@ MonoBehaviour:
   - {x: 285, y: 15, z: 0}
   rotateDuration: 0.5
   ChaosCard: 0
+  BuildingCard: 0
   currentCard:
     name: 
     cardPhoto: {fileID: 0}
@@ -22985,8 +22986,8 @@ MonoBehaviour:
   ScriptDice: {fileID: 1715051115}
   StatsPanel: {fileID: 580194900}
   DownStatsPanel: {fileID: 2120431516}
-  rightText: {fileID: 179606818}
-  leftText: {fileID: 639702972}
+  Text_money: {fileID: 639702972}
+  Text_happiness: {fileID: 179606818}
   Text_electric: {fileID: 1036978125}
   Text_clean: {fileID: 1239888269}
   DownTextMoney: {fileID: 1949588242}
@@ -23119,7 +23120,7 @@ GameObject:
   - component: {fileID: 1726722024}
   - component: {fileID: 1726722023}
   m_Layer: 5
-  m_Name: money
+  m_Name: mutluluk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24993,7 +24994,7 @@ GameObject:
   - component: {fileID: 1896408576}
   - component: {fileID: 1896408575}
   m_Layer: 5
-  m_Name: temiz
+  m_Name: "g\xFCc"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26091,7 +26092,7 @@ GameObject:
   - component: {fileID: 1971076329}
   - component: {fileID: 1971076328}
   m_Layer: 5
-  m_Name: money
+  m_Name: mutluluk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28106,8 +28107,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1949588241}
-  - {fileID: 482910756}
   - {fileID: 533778485}
+  - {fileID: 482910756}
   - {fileID: 711198502}
   m_Father: {fileID: 2115531339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

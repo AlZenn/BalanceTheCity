@@ -33,6 +33,7 @@ public class SC_Dice : MonoBehaviour
     public Vector3[] rotations; // Her zar sonucu için dönüş değerleri
     public float rotateDuration = 1f; // Hedef rotasyona dönüş süresi
     public bool ChaosCard = false;
+    public bool BuildingCard = false;
     
     
     private AudioSource audioSource;
@@ -165,6 +166,7 @@ public class SC_Dice : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, ScriptResourceManager.buildingCards.Count);
                 currentCard = ScriptResourceManager.buildingCards[randomIndex];
+                BuildingCard = true;
             }
         }
 
@@ -300,11 +302,20 @@ public class SC_Dice : MonoBehaviour
         Positifdegerler[1] = Mathf.RoundToInt(approveEffect.cleanlinessChange); // 1 = temizlik
         Positifdegerler[2] = Mathf.RoundToInt(approveEffect.powerChange); // 2 güç
         Positifdegerler[3] = Mathf.RoundToInt(approveEffect.moneyChange); // 3 para
+        
+        
 
         Negatifdegerler[0] = Mathf.RoundToInt(rejectEffect.happinessChange);
         Negatifdegerler[1] = Mathf.RoundToInt(rejectEffect.cleanlinessChange);
         Negatifdegerler[2] = Mathf.RoundToInt(rejectEffect.powerChange);
         Negatifdegerler[3] = Mathf.RoundToInt(rejectEffect.moneyChange);
+        
+        // Positif değerleri logda yazdır
+        Debug.Log($"Positif Değerler - Mutluluk: {Positifdegerler[0]}, Temizlik: {Positifdegerler[1]}, Güç: {Positifdegerler[2]}, Para: {Positifdegerler[3]}");
+
+// Negatif değerleri logda yazdır
+        Debug.Log($"Negatif Değerler - Mutluluk: {Negatifdegerler[0]}, Temizlik: {Negatifdegerler[1]}, Güç: {Negatifdegerler[2]}, Para: {Negatifdegerler[3]}");
+
     }
 
     public bool isSwitched = false;

@@ -69,8 +69,8 @@ public class SC_CardSwipe : MonoBehaviour
         // Objenin bırakıldığı pozisyon ile başlangıç pozisyonunu karşılaştır
         float distanceX = transform.position.x - cardTransform.position.x;
         float distanceY = transform.position.y - cardTransform.position.y;
-
-        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == false)
+        
+        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == false && !ScriptDice.BuildingCard)
         {
             if (distanceX >= targetDistance) // Sağda bırakıldıysa
             {
@@ -100,12 +100,49 @@ public class SC_CardSwipe : MonoBehaviour
             ScriptDice.Button_Dice.interactable = true;
             ScriptDice.ChaosCard = false;
             ScriptDice.isSwitched = false;
+        }else if (ScriptDice.BuildingCard) // building card
+        {
+            if (distanceX >= targetDistance) // Sağda bırakıldıysa
+            {
+                ScriptResourceManager.happiness += ScriptDice.Positifdegerler[0];
+                ScriptResourceManager.cleanliness += ScriptDice.Positifdegerler[1];
+                ScriptResourceManager.power += ScriptDice.Positifdegerler[2];
+                ScriptResourceManager.money += ScriptDice.Positifdegerler[3];
+                
+                
+                ScriptResourceManager.UpdateSliders();
+                ScriptDice.Card_Object.SetActive(false);
+                ScriptResourceManager.dayTextUpdate();
+                ScriptDice.Button_Dice.interactable = true;
+                ScriptDice.BuildingCard = false;
+                ScriptDice.isSwitched = false;
+                
+                Debug.Log("sağa kaydırıldı");
+            }
+            else if (distanceX <= -targetDistance) // Solda bırakıldıysa
+            {
+                ScriptResourceManager.happiness += ScriptDice.Negatifdegerler[0];
+                ScriptResourceManager.cleanliness += ScriptDice.Negatifdegerler[1];
+                ScriptResourceManager.power += ScriptDice.Negatifdegerler[2];
+                ScriptResourceManager.money += ScriptDice.Negatifdegerler[3];
+
+                ScriptResourceManager.UpdateSliders();
+                ScriptDice.Card_Object.SetActive(false);
+                ScriptResourceManager.dayTextUpdate();
+                ScriptDice.Button_Dice.interactable = true;
+                ScriptDice.BuildingCard = false;
+                ScriptDice.isSwitched = false;
+                Debug.Log("sola kaydırıldı");
+            }
+            
+            
+            
         }
 
         
         
         
-        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == true)
+        if (!ScriptDice.ChaosCard && ScriptDice.isSwitched == true && !ScriptDice.BuildingCard)
         {
             if (distanceY >= (targetDistance - 100))
             {

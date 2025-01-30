@@ -6,11 +6,13 @@ public class MainMenu : MonoBehaviour
 {
     public string nextLevel = "cutscene";
 
-    [Header("Panels")] public GameObject howToPlayPanel;
+    [Header("Panels")] 
+    public GameObject howToPlayPanel;
     public GameObject creditsPanel;
     public GameObject settingsPanel;
 
-    [Header("Buttons")] public Button startButton;
+    [Header("Buttons")] 
+    public Button startButton;
     public Button howToPlayButton;
     public Button closeHowToPlayButton;
     public Button creditsButton;
@@ -20,11 +22,12 @@ public class MainMenu : MonoBehaviour
     public Button quitButton;
     public Button soundToggleButton;
 
-    [Header("Sound Settings")] public AudioSource backgroundMusic;
+    [Header("Sound Settings")] 
+    public AudioSource backgroundMusic;
     public Sprite soundOnSprite;
     public Sprite soundOffSprite;
 
-    private bool isSoundOn = true;
+    private bool isSoundOn;
     
     [Header("Sosyal Medya Linkleri")]
     [SerializeField] private string sosyal_medya_ayse = "https://alzennn.itch.io/sehri-yonet";
@@ -48,7 +51,11 @@ public class MainMenu : MonoBehaviour
         quitButton.onClick.AddListener(QuitGame);
         soundToggleButton.onClick.AddListener(ToggleSound);
 
-        // Set the initial sound button sprite
+        // Önceden kaydedilmiş ses ayarını yükle
+        isSoundOn = PlayerPrefs.GetInt("SoundState", 1) == 1;
+        backgroundMusic.mute = !isSoundOn;
+        
+        // Başlangıçta doğru sprite'ı ayarla
         UpdateSoundButtonSprite();
     }
 
@@ -62,7 +69,6 @@ public class MainMenu : MonoBehaviour
         {
             SceneManager.LoadScene(nextLevel);
         }
-
     }
 
     private void TogglePanel(GameObject panel, bool isActive)
@@ -79,22 +85,19 @@ public class MainMenu : MonoBehaviour
     {
         isSoundOn = !isSoundOn;
         backgroundMusic.mute = !isSoundOn;
+
+        // Seçimi kaydet
+        PlayerPrefs.SetInt("SoundState", isSoundOn ? 1 : 0);
+        PlayerPrefs.Save();
+
         UpdateSoundButtonSprite();
     }
 
     private void UpdateSoundButtonSprite()
     {
-        if (isSoundOn)
-        {
-            soundToggleButton.GetComponent<Image>().sprite = soundOnSprite;
-        }
-        else
-        {
-            soundToggleButton.GetComponent<Image>().sprite = soundOffSprite;
-        }
+        soundToggleButton.GetComponent<Image>().sprite = isSoundOn ? soundOnSprite : soundOffSprite;
     }
 
-    
     public void button_social_alzenn()
     {
         if (sosyal_medya_alzenn != null)
@@ -123,6 +126,4 @@ public class MainMenu : MonoBehaviour
             Application.OpenURL(sosyal_medya_oguzhan);
         }
     }
-
-
 }
