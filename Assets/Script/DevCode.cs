@@ -83,6 +83,16 @@ public class DevCode : MonoBehaviour
             ScriptElectionManager.totalVotes = 60f;
             ScriptElectionManager.UpdateVoteText();
         }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) && devActive)
+        {
+            Screen.SetResolution(540, 960, false);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.DownArrow) && devActive)
+        {
+            Screen.SetResolution(450, 800, false);
+        }
         
     }
     

@@ -27993,7 +27993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScriptDice: {fileID: 1715051115}
   ScriptResourceManager: {fileID: 1715051116}
-  targetDistance: 450
+  targetDistance: 300
   isDragging: 0
   dragSound: {fileID: 8300000, guid: 3103e3c6c8450314badedd982f613f78, type: 3}
   cardTransform: {fileID: 936316191}

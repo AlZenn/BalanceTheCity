@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,6 +6,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     public string nextLevel = "cutscene";
+    public bool webglapp = true;
 
     [Header("Panels")] 
     public GameObject howToPlayPanel;
@@ -61,7 +63,7 @@ public class MainMenu : MonoBehaviour
 
     private void StartGame()
     {
-        if (PlayerPrefs.HasKey("Baskan"))
+        if (PlayerPrefs.HasKey("Baskan") || webglapp == true)
         {
             SceneManager.LoadScene("game2");
         }

@@ -12,7 +12,7 @@ public class SC_CardSwipe : MonoBehaviour
 
     [Header("Kart Kaydırma Elementleri")]
     private Vector3 initialPosition;
-    [SerializeField] private int targetDistance = 450;
+    [SerializeField] private int targetDistance = 300;
     [SerializeField] private bool isDragging = false;
 
     [SerializeField] private AudioClip dragSound; // Sürükleme sesi
